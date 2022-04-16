@@ -36,5 +36,7 @@ public class Joueur {
         this.inventaire.remove(j);
 
     }
-
+    public String getNom(){return this.nom;}
+    public int[] getPos(){return this.c.getPos();}
+    public ArrayList<Objet> getInventaire(){return this.inventaire;}
 }

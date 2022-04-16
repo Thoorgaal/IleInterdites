@@ -42,6 +42,8 @@ public class Model {
     public Plateau getPlateau(){
         return this.plateau;
     }
+
+    public ArrayList<Joueur> getJoueurs(){return this.joueurs;}
     public ArrayList<int[]> getInnondee(){
         return this.plateau.getIdCaseInnondee();
     }

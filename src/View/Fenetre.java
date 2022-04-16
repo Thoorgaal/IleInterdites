@@ -11,7 +11,7 @@ public class Fenetre extends JFrame {
         this.height = height;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(width,height);
-        this.pan = new Contenu(this,model.getPlateau());
+        this.pan = new Contenu(this,model.getPlateau(), model.getJoueurs());
         this.getContentPane().add(this.pan);
         setVisible(true);
     }
