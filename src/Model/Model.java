@@ -24,8 +24,12 @@ public class Model {
     public void InitiateSimple(){
         this.plateau.InitiateSimple();
     }
-    public void InitiateRandom(int n){
-        this.plateau.InitiateRandom();
+    public void InitiateRandom(int n) throws Exception{
+        try{
+            this.plateau.InitiateRandom(n);
+        }catch (Exception e){
+            throw e;
+        }
     }
 
     public String toString(){

@@ -5,7 +5,7 @@ public enum Direction {
 
     @Override
     public String toString() {
-        switch (this){
+        switch (this) {
             case HAUT:
                 return "haut";
             case BAS:
@@ -17,18 +17,38 @@ public enum Direction {
         }
         return "";
     }
-    public int[] getPos(int[] pos){
-        switch (this){
+
+    public int[] getPos(int[] pos) {
+        switch (this) {
             case HAUT:
-                return  new int[]{pos[0],pos[1]+1};
+                return new int[]{pos[0], pos[1] + 1};
             case BAS:
-                return  new int[]{pos[0],pos[1]-1};
+                return new int[]{pos[0], pos[1] - 1};
             case GAUCHE:
-                return  new int[]{pos[0]-1,pos[1]};
+                return new int[]{pos[0] - 1, pos[1]};
             case DROITE:
-                return  new int[]{pos[0]+1,pos[1]};
+                return new int[]{pos[0] + 1, pos[1]};
         }
         return pos;
     }
 
+    public static Direction[] getAll() {
+        return new Direction[]{HAUT, BAS, GAUCHE, DROITE};
+    }
+
+    public int fromDGetInt() {
+        switch (this) {
+            case HAUT:
+                return 0;
+            case BAS:
+                return 1;
+            case GAUCHE:
+                return 2;
+            case DROITE:
+                return 3;
+        }
+        return -1;
+    }
 }
+
+

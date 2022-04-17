@@ -1,4 +1,6 @@
 package Model;
+import java.io.StringReader;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import  java.util.ArrayList;
 import Utilitaire.List;
@@ -19,6 +21,12 @@ public class Plateau {
             }
         }
     }
+    public boolean is_in(int[] pos) throws Exception{
+        if(pos.length !=2){
+            throw new IllegalArgumentException("len(pos) should be 2");
+        }
+        return pos[0]>=0 && pos[0]<this.width && pos[1]>=0 && pos[1]<this.height;
+    }
     public void InitiateSimple(){
         for(int i=0;i<this.width;i++){
             this.plat.get(0).get(i).setEtat(EtatCase.SUBMERGE);
@@ -29,8 +37,19 @@ public class Plateau {
             this.plat.get(i).get(this.height -1).setEtat(EtatCase.SUBMERGE);
         }
     }
-    public void InitiateRandom(){
+    public void InitiateRandom(int n) throws Exception{
         this.InitiateSimple();
+        for(int i =0;i<n; i++){
+            try{
+                ArrayList<Case> to_innonde = this.getAbleInn();
+                Case c = random.getRandomElt(to_innonde);
+                this.InnondeVoisinAlea(c.getPos());
+
+            }catch (Exception e){
+                throw e;
+            }
+        }
+
     }
     public ArrayList<ArrayList<Case>> getPlat(){
         return this.plat;
@@ -77,6 +96,36 @@ public class Plateau {
         }
         return render + ")";
     }
+    public boolean canBeInnonde(int[] pos) throws Exception{
+        //retourne false si la case peut pas avoir un vois innondé true sinon
+        if(this.get(pos).getEtat() == EtatCase.SUBMERGE) {
+            ArrayList<Case> to_inspect = this.getCaseInBoard(pos);
+            for (Case c : to_inspect) {
+                if (c.getEtat() == EtatCase.INNONDE || c.getEtat() == EtatCase.NORMAL) {
+
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public ArrayList<Case> getAbleInn() throws Exception{
+        //retourne l'ensemble des cases avec un voisin innondable
+        ArrayList<Case> render = new ArrayList<Case>();
+        for(ArrayList<Case> p : this.plat){
+            for(Case c : p ){
+                try{
+                    if(this.canBeInnonde(c.getPos())){
+                        render.add(c);
+
+                    }
+                }catch (Exception e){
+                    throw e;
+                }
+            }
+        }
+        return render;
+    }
     public ArrayList<int[]> getIdCaseInnondee(){
         ArrayList<int[]> render = new ArrayList<int[]>();
         for (ArrayList<Case> p : this.plat){
@@ -99,48 +148,40 @@ public class Plateau {
         }
         return render;
     }
+    public ArrayList<Case> getCaseInBoard(int[] pos) throws Exception{
+        ArrayList<Case> render = new ArrayList<Case>();
+        Direction[] dir = Direction.getAll();
+        for(Direction d : dir){
+              try{
+                  int[] nP = d.getPos(pos);
+                  if(this.is_in(nP)){
+                        render.add(this.get(nP));
 
-    public Case getRandomCaseDir(int[] pos,Direction[] dir) throws Exception{
-        //retourne un voisin aléatoire dans le plateau
-        ArrayList<Direction> dirF;
-        if(pos[0] == 0 && pos[1]!= this.height-1 && pos[1]!=0){
-            dirF= List.getDeleted(Direction.GAUCHE,dir);
-            return this.get(random.getRandomElt(dirF).getPos(pos));
-        }else if(pos[0] == this.width-1 && pos[1]!= this.height-1 && pos[1]!=0) {
-             dirF = List.getDeleted(Direction.DROITE, dir);
-            return this.get(random.getRandomElt(dirF).getPos(pos));
-        }else if(pos[1] == this.height-1 && pos[0] != 0 && pos[0] != this.height-1){
-             dirF= List.getDeleted(Direction.BAS,dir);
-            return this.get(random.getRandomElt(dirF).getPos(pos));
-        }else if(pos[1]==0 && pos[0] != 0 && pos[0] != this.height-1){
-            dirF= List.getDeleted(Direction.HAUT,dir);
-            return this.get(random.getRandomElt(dirF).getPos(pos));
-        }else if(pos[1] == 0 && pos[0] == 0){
-            Direction[] d = new Direction[]{Direction.HAUT,Direction.GAUCHE};
-            dirF = List.getDeleted(d,dir);
-            return this.get(random.getRandomElt(dirF).getPos(pos));
-        }else if(pos[0] == 0 && pos[1] == this.height-1){
-            Direction[] d = new Direction[]{Direction.BAS,Direction.GAUCHE};
-            dirF = List.getDeleted(d,dir);
-            return this.get(random.getRandomElt(dirF).getPos(pos));
-        }else if(pos[0]==this.width-1 && pos[1]==0){
-            Direction[] d = new Direction[]{Direction.HAUT,Direction.DROITE};
-            dirF = List.getDeleted(d,dir);
-            return this.get(random.getRandomElt(dirF).getPos(pos));
-        }else if(pos[0] == this.width-1 && pos[1]==this.height-1){
-            Direction[] d = new Direction[]{Direction.BAS,Direction.DROITE};
-            dirF = List.getDeleted(d,dir);
-            return this.get(random.getRandomElt(dirF).getPos(pos));
+                  }
+              }catch (Exception e){
+                  throw e;
+              }
         }
-        return null;
-
-
+        return render;
     }
 
-    public void InnondeVoisinAlea(int[] pos) throws Exception{
-        for(int i = 0; i<3;i++){
 
+    public void InnondeVoisinAlea(int[] pos) throws Exception{
+        //innonde une case aléatoire qui n'est pas déjà submergé (si innondé -> submerge, si normal -> innonde)
+        try{
+            ArrayList<Case> to_inspect = this.getCaseInBoard(pos);
+            ArrayList<Case> to_do = new ArrayList<Case>();
+            for(Case c : to_inspect){
+                if(c.getEtat() != EtatCase.SUBMERGE){
+                    to_do.add(c);
+                }
+            }
+            Case c = random.getRandomElt(to_do);
+            c.setEtat(EtatCase.fromInt((c.getEtat().getInt())+1));
+        }catch (Exception e){
+            throw e;
         }
+
 
 
 

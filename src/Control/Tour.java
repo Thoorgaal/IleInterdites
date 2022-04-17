@@ -12,21 +12,20 @@ public class Tour {
         this.plateau = m.getPlateau();
 
     }
-    private void innonde(int n){
-        ArrayList<int[]> sub = this.plateau.getIndCaseSubmergee();
-        for(int i = 0;i<n;i++){
-            int ind = random.randInt(0,sub.size()-1);
+
+    public void endTurn() throws Exception{
+        this.innonde(3);
+    }
+    private void innonde(int n)throws Exception{
+        for(int i =0; i<n;i++){
             try{
-                this.plateau.InnondeVoisinAlea(sub.get(ind));
+                ArrayList<Case> to_inspect = this.plateau.getAbleInn();
+                Case to_do = random.getRandomElt(to_inspect);
+                this.plateau.InnondeVoisinAlea(to_do.getPos());
             }catch (Exception e){
-                e.printStackTrace();
-                System.exit(-1);
+                throw e;
             }
-            sub.remove(ind);
         }
 
-    }
-    public void tour(){
-        this.innonde(3);
     }
 }

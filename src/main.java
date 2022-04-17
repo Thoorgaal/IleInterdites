@@ -10,12 +10,12 @@ import javax.swing.*;
 
 public class main {
     public static void main(String[] args){
-        /*ArrayList<String> noms = new ArrayList<String>();
+        ArrayList<String> noms = new ArrayList<String>();
         noms.add("Bite");
         ArrayList<int[]> pos = new ArrayList<int[]>();
         int[] p = {4,4};
         pos.add(p);
-        start_game(noms, pos);*/
+        start_game(noms, pos);/*
         JFrame menu = new JFrame("Menu");
         menu.setLayout(null);
         menu.setPreferredSize(new Dimension(400, 250));
@@ -71,7 +71,7 @@ public class main {
         menu.add(t4);
         menu.add(b);
         menu.pack();
-        menu.setVisible(true);
+        menu.setVisible(true);*/
     }
     public static void start_game(ArrayList<String> noms, ArrayList<int[]> pos){
         Model m;
@@ -79,7 +79,7 @@ public class main {
 
         try{
             m = new Model(15,15,noms,pos);
-            m.InitiateSimple();
+            m.InitiateRandom(25);
             c = new Control(m);
 
 
