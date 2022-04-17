@@ -83,7 +83,7 @@ public class main {
             c = new Control(m);
 
 
-            View v  = new View(m);
+            View v  = new View(m,c);
         }catch (Exception e) {
             e.printStackTrace();
             System.exit(-1);

@@ -1,7 +1,9 @@
 package View;
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.*;
 
+import Control.Control;
 import Model.*;
 
 import java.text.Normalizer;
@@ -11,9 +13,10 @@ public class Contenu extends JPanel{
     private JFrame fen;
     private Plateau plat;
     private ArrayList<Joueur> joueurs;
+    private Control control;
     private Color fond;
 
-    public Contenu(JFrame fen,Plateau plat, ArrayList<Joueur> js){
+    public Contenu(JFrame fen, Plateau plat, ArrayList<Joueur> js,  Control c){
         super();
         this.setLayout(null);
         this.fen = fen;
@@ -21,9 +24,22 @@ public class Contenu extends JPanel{
         this.plat = plat;
         this.fond = new Color(255,255,255);
         this.joueurs = js;
+        this.control = c;
         JButton myButton = new JButton("new turn");
         myButton.setLocation(fen.getWidth() - 200, fen.getHeight()/2);
         myButton.setSize (110,25);
+        Contenu thiscontenu = this;
+        myButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    c.newTurn();
+                    thiscontenu.revalidate();
+                    thiscontenu.repaint();
+                }catch (Exception expp){
+
+                }
+            }
+        });
         this.add(myButton);
     }
     public void paint(Graphics g){
