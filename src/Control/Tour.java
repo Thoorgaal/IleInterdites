@@ -1,4 +1,5 @@
 package Control;
+import View.*;
 import Model.Model;
 import Model.Plateau;
 import Model.Case;
@@ -15,12 +16,13 @@ public class Tour {
     private int nbJoueur;
     private Model m;
     private ArrayList<Joueur> joueurs;
-    private boolean keyPressed;
+    private boolean keyPressed,endTurn;
     private int tJ;
     private keyEcouteur k;
     public static final int maxAction = 3;
+    private View v;
     EtatTour etat;
-    public Tour(Model m, keyEcouteur k){
+    public Tour(Model m, keyEcouteur k,View v){
         this.k = k;
         this.m = m;
         this.plateau = m.getPlateau();
@@ -28,28 +30,37 @@ public class Tour {
         this .nbJoueur = this.joueurs.size();
         this.etat = EtatTour.NULL;
         this.keyPressed = false;
+        this.endTurn = false;
         this.tJ =0;
+        this.v = v;
     }
-    public void Turn(){
+    public void Turn() throws Exception{
         this.etat = EtatTour.TURN;
-        this.k.setEtatT(this.etat);
-        for(int i = 0; i<nbJoueur;i++){
-            this.tJ = i;
-            int mA = maxAction;
-            while(maxAction>0){
-                if(this.k.getTyped()){
-                    mA--;
+        for(int i =0; i<nbJoueur;i++){
+            int max = this.maxAction;
+            while(max>0){
+                if(this.k.getTyped() == true){
                     this.k.setTyped(false);
-                    Direction to_do = this.k.getD();
-
+                    Direction d = this.k.getD();
+                    if(d == Direction.NULL){
+                        if(this.k.getEnd() == true){
+                            System.out.println("bite");
+                            this.endTurn();
+                        }
+                    }
                 }
             }
         }
+        this.k.setEtatT(EtatTour.TURN);
+
 
     }
 
     public void endTurn() throws Exception{
+        this.k.setEnd(true);
         this.innonde(3);
+        this.v.Update();
+        this.k.setEnd(false);
 
     }
     private void innonde(int n)throws Exception{

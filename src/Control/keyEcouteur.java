@@ -14,11 +14,12 @@ import java.awt.event.KeyListener;
 public class keyEcouteur implements KeyListener {
     private Direction d;
     private EtatTour etatT;
-    private boolean typed;
+    private boolean typed,endTurn;
     public keyEcouteur(){
         super();
         this.d = Direction.NULL;
         this.typed = false;
+        this.etatT = EtatTour.NULL;
     }
     public Direction getD() {
         return d;
@@ -43,6 +44,9 @@ public class keyEcouteur implements KeyListener {
                 case 's':
                     if(this.typed == false)this.d = Direction.BAS;
                     this.typed = true;
+                case 'n':
+                    if(this.typed == false) this.endTurn = true;
+                    this.typed = true;
 
             }
         }
@@ -61,11 +65,17 @@ public class keyEcouteur implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println("qùsldqsdqùlishdqsùhlqsdùqlksdhqsùdlkhqsdùlqskhdq");
+
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        System.out.println("qùsldqsdqùlishdqsùhlqsdùqlksdhqsùdlkhqsdùlqskhdq");
+
+    }
+    public boolean getEnd(){
+        return this.endTurn;
+    }
+    public void setEnd(boolean e){
+        this.endTurn = e;
     }
 }

@@ -11,7 +11,6 @@ import javax.swing.*;
 
 public class main {
     public static void main(String[] args){
-
         ArrayList<String> noms = new ArrayList<String>();
         ArrayList<int[]> pos = new ArrayList<int[]>();
         noms.add("yo");
@@ -22,9 +21,9 @@ public class main {
 
         pos.add(p2);
         start_game(noms,pos);
-        /*
 
-        JFrame menu = new JFrame("Menu");
+
+        /*JFrame menu = new JFrame("Menu");
         menu.setLayout(null);
         menu.setPreferredSize(new Dimension(400, 250));
 
@@ -88,14 +87,15 @@ public class main {
         try{
             m = new Model(15,15,noms,pos);
             m.InitiateRandom(25);
-            c = new Control(m,k);
             ArrayList<Joueur> j = m.getJoueurs();
 
             Joueur J = j.get(0);
             Joueur j2 =j.get(1);
             m.movePlayer(j2,Direction.HAUT);
             //m.movePlayer(j.get(0), Direction.HAUT);
-            View v  = new View(m,c,k);
+            View v  = new View(m,k);
+            c = new Control(m,k,v);
+            c.t();
         }catch (Exception e) {
             e.printStackTrace();
             System.exit(-1);
