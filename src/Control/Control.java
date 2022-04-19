@@ -13,6 +13,7 @@ public class Control {
     }
     public void newTurn() throws  Exception{
         this.turn.endTurn();
+
     }
 
 

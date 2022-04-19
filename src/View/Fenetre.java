@@ -4,7 +4,7 @@ import java.awt.event.*;
 import Model.Model;
 import Control.*;
 public class Fenetre extends JFrame {
-    JPanel pan;
+    Contenu pan;
     private int width,height;
     public Fenetre(int width,int height,Model model, Control c){
         super("Iles Interdites");
@@ -25,5 +25,9 @@ public class Fenetre extends JFrame {
     @Override
     public int getHeight() {
         return this.height;
+    }
+
+    public void Update(){
+        pan.Update();
     }
 }

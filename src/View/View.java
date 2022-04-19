@@ -10,4 +10,8 @@ public class View {
         this.fen = new Fenetre(1080,920,m, c);
         this.model = m;
     }
+
+    public void Update(){
+        fen.Update();
+    }
 }

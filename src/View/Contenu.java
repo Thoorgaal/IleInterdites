@@ -83,7 +83,11 @@ public class Contenu extends JPanel{
             }
         }
     }
-    public void update(Plateau plat){
+    public void changeModel(Plateau plat){
         this.plat = plat;
+    }
+    public void Update(){
+        this.revalidate();
+        this.repaint();
     }
 }
