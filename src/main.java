@@ -84,19 +84,18 @@ public class main {
     public static void start_game(ArrayList<String> noms,ArrayList<int[]> pos){
         Model m;
         Control c;
+        keyEcouteur k = new keyEcouteur();
         try{
             m = new Model(15,15,noms,pos);
             m.InitiateRandom(25);
-            c = new Control(m);
+            c = new Control(m,k);
             ArrayList<Joueur> j = m.getJoueurs();
 
             Joueur J = j.get(0);
             Joueur j2 =j.get(1);
-            System.out.println(J);
             m.movePlayer(j2,Direction.HAUT);
-            System.out.println(j2);
             //m.movePlayer(j.get(0), Direction.HAUT);
-            View v  = new View(m,c);
+            View v  = new View(m,c,k);
         }catch (Exception e) {
             e.printStackTrace();
             System.exit(-1);

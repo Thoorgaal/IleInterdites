@@ -15,7 +15,6 @@ public class random {
     }
     public static <T> T getRandomElt(ArrayList<T> list){
         int i = randInt(0,list.size()-1);
-        System.out.println(i);
         return list.get(i);
     }
 }

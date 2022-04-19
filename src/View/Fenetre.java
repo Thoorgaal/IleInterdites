@@ -1,20 +1,30 @@
 package View;
 import javax.swing.*;
 import java.awt.event.*;
+
 import Model.Model;
 import Control.*;
+
+
 public class Fenetre extends JFrame {
-    Contenu pan;
+    private Contenu  content;
     private int width,height;
-    public Fenetre(int width,int height,Model model, Control c){
+    private keyEcouteur k;
+    public Fenetre(int width,int height,Model model, Control c,keyEcouteur k){
         super("Iles Interdites");
+        this.k = k;
         this.width = width;
         this.height = height;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(width,height);
-        this.pan = new Contenu(this,model.getPlateau(), model.getJoueurs(), c);
-        this.getContentPane().add(this.pan);
+        this.content = new Contenu(this,model.getPlateau(), model.getJoueurs(), c);
+        this.getContentPane().add(this.content);
         setVisible(true);
+        this.addKeyListener(this.k);
+        System.out.println(k);
+        System.out.println(this.k);
+        System.out.println(this.getKeyListeners()[0]);
+
     }
 
     @Override
@@ -26,8 +36,7 @@ public class Fenetre extends JFrame {
     public int getHeight() {
         return this.height;
     }
-
     public void Update(){
-        pan.Update();
+        this.content.Update();
     }
 }

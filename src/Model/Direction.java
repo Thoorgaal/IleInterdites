@@ -1,7 +1,7 @@
 package Model;
 
 public enum Direction {
-    HAUT, BAS, GAUCHE, DROITE;
+    HAUT, BAS, GAUCHE, DROITE,NULL;
 
     @Override
     public String toString() {
@@ -15,7 +15,7 @@ public enum Direction {
             case DROITE:
                 return "droite";
         }
-        return "";
+        return "NULL";
     }
 
     public int[] getPos(int[] pos) {

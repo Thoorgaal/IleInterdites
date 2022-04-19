@@ -38,7 +38,7 @@ public class Joueur {
 
     }
     public String getNom(){return this.nom;}
-    public int[] getPos(){return this.pos;}
+    public int[] getPos(){return this.pos    ;}
     public ArrayList<Objet> getInventaire(){return this.inventaire;}
     public void move(Case c) throws Exception{
         this.c = c;

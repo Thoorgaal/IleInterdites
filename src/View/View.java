@@ -6,12 +6,12 @@ public class View {
     private Fenetre fen;
     private Model model;
 
-    public View(Model m , Control c){
-        this.fen = new Fenetre(1080,920,m, c);
+    public View(Model m , Control c,keyEcouteur k){
+        this.fen = new Fenetre(1080,920,m, c,k);
         this.model = m;
     }
 
     public void Update(){
-        fen.Update();
+        this.fen.Update();
     }
 }
