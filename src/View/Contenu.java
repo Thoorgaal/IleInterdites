@@ -2,6 +2,7 @@ package View;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.File;
 
 import Control.Control;
 import Model.*;
@@ -44,19 +45,17 @@ public class Contenu extends JPanel{
     }
     public void paint(Graphics g){
         int x = 20, y = 20;
-
+        Image imgInnonde = Toolkit.getDefaultToolkit().getImage("images/10_20.png");
+        Image imgSubmerge = Toolkit.getDefaultToolkit().getImage("images/0_20.png");
+        Image imgNormal = Toolkit.getDefaultToolkit().getImage("images/tatami.png");
         for(ArrayList<Case> l : this.plat.getPlat()){
             for(Case c : l){
                 if(c.getEtat() == EtatCase.INNONDE){
-                    g.setColor(new Color(0,255,255));
-                    g.fillRect(x,y,Case.width,Case.height);
+                    g.drawImage(imgInnonde, x,y, null);
                 }else if(c.getEtat() ==EtatCase.SUBMERGE) {
-                    g.setColor(new Color(0,0,255));
-                    g.fillRect(x,y,Case.width,Case.height);
+                    g.drawImage(imgSubmerge, x,y, null);
                 }else if(c.getEtat() ==EtatCase.NORMAL){
-                    //System.out.println(Integer.toString(x) + " " + Integer.toString(y));
-                    g.setColor(new Color(0,255,0));
-                    g.fillRect(x,y,Case.width,Case.height);
+                    g.drawImage(imgNormal, x,y, null);
                 }
                 g.setColor(this.fond);
                 g.drawRect(x,y,Case.width,Case.height);
@@ -66,12 +65,14 @@ public class Contenu extends JPanel{
             y+=Case.height;
         }
         int i = 0;
+        int ipri = 1;
         for(Joueur j: this.joueurs) {
             g.setColor(Color.WHITE);
             //nom sur la case
             x = j.getPos()[0];
-            y = j.getPos()[0];
-            g.drawString(j.getNom(), 20 + x*50,20 +y*50 +20);
+            y = j.getPos()[1];
+            g.drawImage(Toolkit.getDefaultToolkit().getImage("images/"+ipri+".jpg"), 20 + x*50,20 +y*50, null);
+
 
             //inventaires
             g.setColor(Color.BLACK);
@@ -81,6 +82,7 @@ public class Contenu extends JPanel{
             for(Objet obj: inv){
 
             }
+            ipri++;
         }
     }
     public void changeModel(Plateau plat){
