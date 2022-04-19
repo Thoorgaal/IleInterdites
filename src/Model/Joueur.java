@@ -6,12 +6,13 @@ public class Joueur {
     private Case c;
     private String nom;
     private ArrayList<Objet> inventaire;
-
+    private int[] pos;
 
     public Joueur(Case c,String nom){
         this.c = c;
         this.nom = nom;
         this.inventaire = new ArrayList<Objet>();
+        this.pos = c.getPos();
     }
 
     public String toString(){
@@ -37,6 +38,10 @@ public class Joueur {
 
     }
     public String getNom(){return this.nom;}
-    public int[] getPos(){return this.c.getPos();}
+    public int[] getPos(){return this.pos;}
     public ArrayList<Objet> getInventaire(){return this.inventaire;}
+    public void move(Case c) throws Exception{
+        this.c = c;
+        this.pos = c.getPos();
+    }
 }

@@ -1,21 +1,29 @@
 import  Model.*;
 
 import java.awt.*;
-import java.util.ArrayList;
+import  java.util.ArrayList;
 import Control.*;
 import View.*;
+import Model.*;
 import java.awt.event.*;
 
 import javax.swing.*;
 
 public class main {
     public static void main(String[] args){
+
         ArrayList<String> noms = new ArrayList<String>();
-        noms.add("Bite");
         ArrayList<int[]> pos = new ArrayList<int[]>();
+        noms.add("yo");
+        noms.add("uo");
         int[] p = {4,4};
+        int[] p2 = {4,4};
         pos.add(p);
-        start_game(noms, pos);/*
+
+        pos.add(p2);
+        start_game(noms,pos);
+        /*
+
         JFrame menu = new JFrame("Menu");
         menu.setLayout(null);
         menu.setPreferredSize(new Dimension(400, 250));
@@ -73,16 +81,21 @@ public class main {
         menu.pack();
         menu.setVisible(true);*/
     }
-    public static void start_game(ArrayList<String> noms, ArrayList<int[]> pos){
+    public static void start_game(ArrayList<String> noms,ArrayList<int[]> pos){
         Model m;
         Control c;
-
         try{
             m = new Model(15,15,noms,pos);
             m.InitiateRandom(25);
             c = new Control(m);
+            ArrayList<Joueur> j = m.getJoueurs();
 
-
+            Joueur J = j.get(0);
+            Joueur j2 =j.get(1);
+            System.out.println(J);
+            m.movePlayer(j2,Direction.HAUT);
+            System.out.println(j2);
+            //m.movePlayer(j.get(0), Direction.HAUT);
             View v  = new View(m,c);
         }catch (Exception e) {
             e.printStackTrace();

@@ -54,6 +54,14 @@ public class Model {
     public ArrayList<int[]> getIndSubmergee(){
         return this.plateau.getIndCaseSubmergee();
     }
+    public void movePlayer(Joueur j, Direction d) throws Exception{
+        int[] pos = d.getPos(j.getPos());
+        if(!this.plateau.is_in(pos)){
+            throw new IllegalArgumentException("the direction given leads to nowhere");
+        }
+        Case nC = this.plateau.get(pos);
+        j.move(nC);
+    }
 
 
 }
