@@ -25,7 +25,7 @@ public class Contenu extends JPanel{
         this.fond = new Color(255,255,255);
         this.joueurs = js;
         JButton myButton = new JButton("new turn");
-        myButton.setLocation(fen.getWidth() - 200, fen.getHeight()/2);
+        myButton.setLocation(fen.getWidth() - 200, 650);
         myButton.setSize (110,25);
         Contenu thiscontenu = this;
         myButton.addActionListener(new ActionListener() {
@@ -67,6 +67,7 @@ public class Contenu extends JPanel{
         }
         int i = 0;
         int ipri = 1;
+        Font Fontnomperso = new Font ("Courier New", 1, 17);
         for(Joueur j: this.joueurs) {
             g.setColor(Color.WHITE);
             //nom sur la case
@@ -76,8 +77,12 @@ public class Contenu extends JPanel{
 
 
             //inventaires
-            g.setColor(Color.BLACK);
-            g.drawString(j.getNom(), fen.getWidth() - 300, 20 +i*10);
+            g.setColor(Color.red);
+            g.fillRect(fen.getWidth() - 295, 20 +i*75, 280,130);
+            g.drawImage(Toolkit.getDefaultToolkit().getImage("images/"+ipri+".jpg"), fen.getWidth() - 295, 20 +i*75, null);
+            g.setColor(Color.black);
+            g.setFont(Fontnomperso);
+            g.drawString(j.getNom(), fen.getWidth() - 240, 60 +i*75);
             i += 2;
             ArrayList<Objet> inv = j.getInventaire();
             for(Objet obj: inv){

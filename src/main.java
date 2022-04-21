@@ -13,8 +13,8 @@ public class main {
     public static void main(String[] args){
         ArrayList<String> noms = new ArrayList<String>();
         ArrayList<int[]> pos = new ArrayList<int[]>();
-        noms.add("yo");
-        noms.add("uo");
+        noms.add("Victorien");
+        noms.add("Jolan");
         int[] p = {4,4};
         int[] p2 = {4,4};
         pos.add(p);
