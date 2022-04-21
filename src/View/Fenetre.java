@@ -21,6 +21,7 @@ public class Fenetre extends JFrame {
         this.addKeyListener(k);
         this.add(this.content);
         this.setVisible(true);
+        this.setFocusable(true);
     }
 
     @Override

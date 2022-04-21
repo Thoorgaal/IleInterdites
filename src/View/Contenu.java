@@ -24,22 +24,25 @@ public class Contenu extends JPanel{
         this.plat = plat;
         this.fond = new Color(255,255,255);
         this.joueurs = js;
-        /*JButton myButton = new JButton("new turn");
+        JButton myButton = new JButton("new turn");
         myButton.setLocation(fen.getWidth() - 200, fen.getHeight()/2);
         myButton.setSize (110,25);
         Contenu thiscontenu = this;
         myButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                try {
+                /*try {
                     c.newTurn();
                     thiscontenu.revalidate();
                     thiscontenu.repaint();
                 }catch (Exception expp){
 
-                }
+                }*/
+                System.out.println("zizi");
+                myButton.setFocusable(false);
+                fen.setFocusable(true);
             }
         });
-        //this.add(myButton);*/
+        fen.add(myButton);
     }
     public void paint(Graphics g){
         int x = 20, y = 20;
