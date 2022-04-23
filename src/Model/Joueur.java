@@ -44,4 +44,11 @@ public class Joueur {
         this.c = c;
         this.pos = c.getPos();
     }
+    public boolean assecher(){
+        if(this.c.getEtat() != EtatCase.INNONDE){
+            return false;
+        }
+        this.c.setEtat(EtatCase.NORMAL);
+        return true;
+    }
 }

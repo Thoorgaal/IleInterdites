@@ -33,49 +33,50 @@ public class Tour {
     }
     public void Turn(Action a) throws Exception{
         if(this.action_realisee < maxAction) {
-            if(a == Action.HAUT){
-                System.out.println("haut");
-                try {
-                    this.m.movePlayer(this.joueurs.get(this.tJ), Direction.HAUT);
-                } catch (Exception ex) {}
-            } else if (a == Action.GAUCHE) {
-                System.out.println("gauche");
-                try {
-                    this.m.movePlayer(this.joueurs.get(this.tJ), Direction.GAUCHE);
-                } catch (Exception ex) {}
-            } else if (a == Action.DROITE){
-                System.out.println("droite");
-                try {
-                    this.m.movePlayer(this.joueurs.get(this.tJ), Direction.DROITE);
-                } catch (Exception ex) {}
-            }else if (a == Action.BAS){
-                System.out.println("bas");
-                try {
-                    this.m.movePlayer(this.joueurs.get(this.tJ), Direction.BAS);
-                } catch (Exception ex) {}
-            }
-            /*switch (a) {
+            switch (a) {
                 case HAUT:
                     System.out.println("haut");
                     try {
                         this.m.movePlayer(this.joueurs.get(this.tJ), Direction.HAUT);
-                    } catch (Exception ex) {}
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    break;
                 case GAUCHE:
                     System.out.println("gauche");
                     try {
                         this.m.movePlayer(this.joueurs.get(this.tJ), Direction.GAUCHE);
-                    } catch (Exception ex) {}
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    break;
                 case DROITE:
                     System.out.println("droite");
                     try {
                         this.m.movePlayer(this.joueurs.get(this.tJ), Direction.DROITE);
-                    } catch (Exception ex) {}
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    break;
                 case BAS:
                     System.out.println("bas");
                     try {
                         this.m.movePlayer(this.joueurs.get(this.tJ), Direction.BAS);
-                    } catch (Exception ex) {}
-            }*/
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    break;
+                case ASSECHE:
+                    try{
+                        if(!this.m.assecher(this.joueurs.get(this.tJ))){
+                            this.action_realisee--;
+
+                        }
+                    }catch (Exception ex){
+                        ex.printStackTrace();
+                    }
+                    break;
+            }
             this.action_realisee ++;
         }
 

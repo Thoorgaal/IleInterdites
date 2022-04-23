@@ -62,6 +62,10 @@ public class Model {
         Case nC = this.plateau.get(pos);
         j.move(nC);
     }
+    public boolean  assecher(Joueur j){
+        //renvoie vrai et asseche la case si c'est possible, sinon ne fait rien et renvoie false
+        return j.assecher();
+    }
 
 
 }
