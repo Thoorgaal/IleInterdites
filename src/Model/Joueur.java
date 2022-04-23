@@ -17,6 +17,9 @@ public class Joueur {
         this.gagne = false;
 
     }
+    public Case getCase(){
+        return this.c;
+    }
 
     public String toString(){
         return "(Nom:"  + this.nom + ", Inventaire :" + this.inventaire.toString() + ")";
@@ -81,6 +84,7 @@ public class Joueur {
         if(!this.removeK(this.c.getArtefactType())){
             return false;
         }
+        this.inventaire.addVictoryObject(this.c.getArt());
         this.c.removeArtefact();
         return true;
 

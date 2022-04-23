@@ -42,10 +42,13 @@ public class Case {
     }
     public type getType(){return this.t;}
     public boolean Do(Joueur j){
-        switch (this.t){
+       /* switch (this.t){
             case HELIPORT:
                 return false;
-        }
+            default:
+                return false;
+
+        }*/
         return false;
     }
     public void setArtefact(ArtefactType t){
@@ -63,6 +66,9 @@ public class Case {
     public void removeArtefact(){
         this.hasA = false;
         this.a = null;
+    }
+    public Artefact getArt(){
+        return this.a;
     }
 
 }

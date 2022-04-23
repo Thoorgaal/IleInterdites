@@ -10,6 +10,7 @@ import Utilitaire.random.*;
 
 public class Plateau {
     private ArrayList<ArrayList<Case>> plat;
+    private ArrayList<ArtefactType> to_find;
     private int width, height;
     public Plateau(int w,int h){
         this.width = w;
@@ -218,6 +219,7 @@ public class Plateau {
 
     }
     public void setArtefact(ArrayList<ArtefactType> a) throws Exception {
+        this.to_find = a;
         ArrayList<Case> to_change = this.getNormal();
         to_change.remove(this.getH());
         for(ArtefactType art : a){
@@ -226,6 +228,9 @@ public class Plateau {
             to_change.remove(c);
         }
 
+    }
+    public ArrayList<ArtefactType> getTo_find(){
+        return this.to_find;
     }
 
 

@@ -73,7 +73,19 @@ public class Model {
         return j.assecher();
     }
     public boolean ramasser(Joueur j){
-        return j.prendArtefac();
+        ArtefactType t = j.getCase().getArtefactType();
+         if(j.prendArtefac()){
+             this.plateau.getTo_find().remove(t);
+             return true;
+         }
+         return false;
+    }
+    public boolean win() throws Exception {
+        if(this.plateau.getTo_find().size() != 0){
+            return false;
+        }
+        int[] pos = this.plateau.getH().getPos();
+        return true;
     }
 
 }
