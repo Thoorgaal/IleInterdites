@@ -6,43 +6,25 @@ public class Joueur {
     private Case c;
     private boolean gagne;
     private String nom;
-    private ArrayList<Objet> inventaire;
+    private Inventaire inventaire;
     private int[] pos;
 
     public Joueur(Case c,String nom){
         this.c = c;
         this.nom = nom;
-        this.inventaire = new ArrayList<Objet>();
+        this.inventaire = new Inventaire();
         this.pos = c.getPos();
         this.gagne = false;
 
     }
 
     public String toString(){
-        if(this.inventaire.size() == 0)
-            return "( Nom : " + this.nom + ", Case : " + this.c.toString() + ")";
-        String render = "( Nom : " + this.nom + ", Case : " + this.c.toString() + "Inventaire : (";
-        int size = this.inventaire.size();
-        for(int i = 0; i<size; i++){
-            render += this.inventaire.get(i).toString();
-            if(i!= size -1)
-                render += " , ";
-        }
-        return render + ")";
+        return "(Nom:"  + this.nom + ", Inventaire :" + this.inventaire.toString() + ")";
     }
-    public void prendPossession(Objet o){
-        this.inventaire.add(o);
-    }
-    public boolean is_in(Objet o){
-        return this.inventaire.indexOf(o) != -1;
-    }
-    public void retireObjet(Objet j){
-        this.inventaire.remove(j);
 
-    }
     public String getNom(){return this.nom;}
     public int[] getPos(){return this.pos    ;}
-    public ArrayList<Objet> getInventaire(){return this.inventaire;}
+    public Inventaire getInventaire(){return this.inventaire;}
     public void move(Case c) throws Exception{
         this.c = c;
         this.pos = c.getPos();
@@ -60,5 +42,47 @@ public class Joueur {
     }
     public void aGagne(){
         this.gagne = true;
+    }
+    public boolean is_in(victoryObject o){
+        return this.inventaire.getVicObjets().indexOf(o) !=-1;
+    }
+    public boolean is_in(Objet o){
+        return this.inventaire.getObjets().indexOf(o) !=-1;
+    }
+    public boolean is_inK(ArtefactType t){
+        return this.inventaire.getIdK(t) !=-1;
+    }
+    public void prendPossession(Objet o){
+        this.inventaire.addObject(o);
+    }
+    public boolean prendPossession(victoryObject o){
+        //return true et ajoute l'objet si celui ci n'est pas dans l'inventaire du joueur
+        return this.inventaire.addVictoryObject(o);
+    }
+    public ArrayList<ArtefactType> getNonPoss(){
+        //retourne les types de clés non possédé par le joueur
+        ArrayList<ArtefactType> all = ArtefactType.getAll();
+        ArrayList<ArtefactType> render = new ArrayList<ArtefactType>();
+        for(ArtefactType a : all){
+            if(!this.inventaire.hasArtefactK(a)){
+                render.add(a);
+            }
+        }
+        return render;
+    }
+    private boolean removeK(ArtefactType t){
+        return this.inventaire.removeK(t);
+    }
+
+    public boolean prendArtefac(){
+        if(!this.c.hasArte()){
+            return false;
+        }
+        if(!this.removeK(this.c.getArtefactType())){
+            return false;
+        }
+        this.c.removeArtefact();
+        return true;
+
     }
 }

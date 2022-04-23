@@ -72,6 +72,8 @@ public class Model {
         //renvoie vrai et asseche la case si c'est possible, sinon ne fait rien et renvoie false
         return j.assecher();
     }
-
+    public boolean ramasser(Joueur j){
+        return j.prendArtefac();
+    }
 
 }

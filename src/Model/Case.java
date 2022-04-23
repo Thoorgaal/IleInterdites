@@ -60,5 +60,9 @@ public class Case {
     public ArtefactType getArtefactType(){
         return this.a.what();
     }
+    public void removeArtefact(){
+        this.hasA = false;
+        this.a = null;
+    }
 
 }
