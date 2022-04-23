@@ -1,5 +1,4 @@
 package Control;
-import View.*;
 import Model.Model;
 import Model.Plateau;
 import Model.Case;
@@ -9,11 +8,9 @@ import Model.Direction;
 import Model.ArtefactType;
 import Model.Cle;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-public class Tour {
+public class Partie {
     private Plateau plateau;
     private Model m;
 
@@ -24,7 +21,7 @@ public class Tour {
     private int tJ;
     private int action_realisee;
 
-    public Tour(Model m){
+    public Partie(Model m){
         this.m = m;
         this.plateau = m.getPlateau();
 
