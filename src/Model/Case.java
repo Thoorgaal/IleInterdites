@@ -40,6 +40,7 @@ public class Case {
     public void setType(type t) {
         this.t = t;
     }
+    public type getType(){return this.t;}
     public boolean Do(Joueur j){
         switch (this.t){
             case HELIPORT:

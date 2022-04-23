@@ -35,7 +35,6 @@ public class Tour {
         if(this.action_realisee < maxAction) {
             switch (a) {
                 case HAUT:
-                    System.out.println("haut");
                     try {
                         this.m.movePlayer(this.joueurs.get(this.tJ), Direction.HAUT);
                     } catch (Exception ex) {
@@ -43,7 +42,6 @@ public class Tour {
                     }
                     break;
                 case GAUCHE:
-                    System.out.println("gauche");
                     try {
                         this.m.movePlayer(this.joueurs.get(this.tJ), Direction.GAUCHE);
                     } catch (Exception ex) {
@@ -51,7 +49,6 @@ public class Tour {
                     }
                     break;
                 case DROITE:
-                    System.out.println("droite");
                     try {
                         this.m.movePlayer(this.joueurs.get(this.tJ), Direction.DROITE);
                     } catch (Exception ex) {
@@ -59,7 +56,6 @@ public class Tour {
                     }
                     break;
                 case BAS:
-                    System.out.println("bas");
                     try {
                         this.m.movePlayer(this.joueurs.get(this.tJ), Direction.BAS);
                     } catch (Exception ex) {

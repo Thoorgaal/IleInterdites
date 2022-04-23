@@ -37,5 +37,12 @@ public class List {
         }
         return render;
     }
-
+    public static int get_index_element(ArrayList<int[]> l, int[] p){
+        for(int i = 0; i < l.size(); i++){
+            if(l.get(i)[0] == p[0] && l.get(i)[1] == p[1]){
+                return i;
+            }
+        }
+        return -1;
+    }
 }
