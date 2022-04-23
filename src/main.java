@@ -15,11 +15,16 @@ public class main {
         ArrayList<int[]> pos = new ArrayList<int[]>();
         noms.add("Victorien");
         noms.add("Jolan");
+        noms.add("COCO");
+        noms.add("ABel");
         int[] p = {4,4};
         int[] p2 = {4,4};
+        int[] p3 = {4,7};
+        int[] p4 = {4,2};
         pos.add(p);
-
         pos.add(p2);
+        pos.add(p3);
+        pos.add(p4);
         start_game(noms,pos);
 
 

@@ -78,26 +78,6 @@ public class Partie {
             }
             this.action_realisee ++;
         }
-
-        /*this.etat = EtatTour.TURN;
-        for(int i =0; i<nbJoueur;i++){
-            int max = this.maxAction;
-            while(max>0){
-                if(this.k.getTyped() == true){
-                    this.k.setTyped(false);
-                    Direction d = this.k.getD();
-                    if(d == Direction.NULL){
-                        if(this.k.getEnd() == true){
-                            System.out.println("bite");
-                            this.endTurn();
-                        }
-                    }
-                }
-            }
-        }
-        this.k.setEtatT(EtatTour.TURN);*/
-
-
     }
 
     public void endTurn() throws Exception{
@@ -122,5 +102,12 @@ public class Partie {
                 throw e;
             }
         }
+    }
+
+    public int getPlayerActif(){
+        return this.tJ;
+    }
+    public int getToursRestant(){
+        return Partie.maxAction - this.action_realisee;
     }
 }

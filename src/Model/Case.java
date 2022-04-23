@@ -66,6 +66,7 @@ public class Case {
     public void removeArtefact(){
         this.hasA = false;
         this.a = null;
+        this.t = type.NORMAL;
     }
     public Artefact getArt(){
         return this.a;

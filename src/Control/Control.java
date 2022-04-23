@@ -6,11 +6,11 @@ import View.*;
 
 public class Control {
     private Model model;
-    private Tour turn;
+    private Partie turn;
 
     public Control(Model m){
         this.model = m;
-        this.turn = new Tour(m);
+        this.turn = new Partie(m);
 
     }
     public void newTurn() throws  Exception{
@@ -19,5 +19,11 @@ public class Control {
     }
     public void Turn(Action a) throws Exception{
         this.turn.Turn(a);
+    }
+    public int getPlayerActif(){
+        return turn.getPlayerActif();
+    }
+    public int getToursRestant(){
+        return turn.getToursRestant();
     }
 }
