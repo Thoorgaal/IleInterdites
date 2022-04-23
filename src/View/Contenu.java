@@ -116,10 +116,7 @@ public class Contenu extends JPanel{
             g.setFont(Fontnomperso);
             g.drawString(j.getNom(), fen.getWidth() - 240, 60 +i*75);
             i += 2;
-            ArrayList<Objet> inv = j.getInventaire();
-            for(Objet obj: inv){
 
-            }
             ipri++;
         }
     }

@@ -6,6 +6,8 @@ import Model.Case;
 import Model.Joueur;
 import Utilitaire.random;
 import Model.Direction;
+import Model.ArtefactType;
+import Model.Cle;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -35,7 +37,6 @@ public class Tour {
         if(this.action_realisee < maxAction) {
             switch (a) {
                 case HAUT:
-                    System.out.println("haut");
                     try {
                         this.m.movePlayer(this.joueurs.get(this.tJ), Direction.HAUT);
                     } catch (Exception ex) {
@@ -43,7 +44,6 @@ public class Tour {
                     }
                     break;
                 case GAUCHE:
-                    System.out.println("gauche");
                     try {
                         this.m.movePlayer(this.joueurs.get(this.tJ), Direction.GAUCHE);
                     } catch (Exception ex) {
@@ -51,7 +51,6 @@ public class Tour {
                     }
                     break;
                 case DROITE:
-                    System.out.println("droite");
                     try {
                         this.m.movePlayer(this.joueurs.get(this.tJ), Direction.DROITE);
                     } catch (Exception ex) {
@@ -59,7 +58,6 @@ public class Tour {
                     }
                     break;
                 case BAS:
-                    System.out.println("bas");
                     try {
                         this.m.movePlayer(this.joueurs.get(this.tJ), Direction.BAS);
                     } catch (Exception ex) {
@@ -76,6 +74,10 @@ public class Tour {
                         ex.printStackTrace();
                     }
                     break;
+                case RAMASSE:
+                    if(!this.m.ramasser(this.joueurs.get(this.tJ))){
+                        this.action_realisee--;
+                    }
             }
             this.action_realisee ++;
         }
@@ -103,6 +105,13 @@ public class Tour {
 
     public void endTurn() throws Exception{
         this.innonde(3);
+        int alea = random.randInt(0,1);
+        if(alea == 1){
+            Joueur actu = this.joueurs.get(tJ);
+            ArrayList<ArtefactType> to_inspect = actu.getNonPoss();
+            actu.prendPossession(new Cle(random.getRandomElt(to_inspect)));
+        }
+        System.out.println(this.joueurs.get(tJ));
         this.action_realisee = 0;
         this.tJ = (tJ+1)%nbJoueur;
     }
