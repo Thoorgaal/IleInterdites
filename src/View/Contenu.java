@@ -16,7 +16,7 @@ public class Contenu extends JPanel{
     private ArrayList<Joueur> joueurs;
     private Color fond;
 
-    public Contenu(JFrame fen, Plateau plat, ArrayList<Joueur> js){
+    public Contenu(JFrame fen, Plateau plat, ArrayList<Joueur> js, Control c){
         super();
         this.setLayout(null);
         this.fen = fen;
@@ -30,14 +30,12 @@ public class Contenu extends JPanel{
         Contenu thiscontenu = this;
         myButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                /*try {
+                try {
                     c.newTurn();
-                    thiscontenu.revalidate();
-                    thiscontenu.repaint();
+                    thiscontenu.Update();
                 }catch (Exception expp){
 
-                }*/
-                System.out.println("zizi");
+                }
                 myButton.setFocusable(false);
                 fen.setFocusable(true);
             }

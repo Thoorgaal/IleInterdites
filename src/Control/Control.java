@@ -7,28 +7,17 @@ import View.*;
 public class Control {
     private Model model;
     private Tour turn;
-    private keyEcouteur k;
-    private View v;
 
-    public Control(Model m, keyEcouteur k,View v){
+    public Control(Model m){
         this.model = m;
-        this.k = k;
-        this.v = v;
-        this.turn = new Tour(m,k,v);
+        this.turn = new Tour(m);
 
     }
     public void newTurn() throws  Exception{
         this.turn.endTurn();
 
     }
-    public void t() throws Exception{
-        this.turn.Turn();
+    public void Turn(Action a) throws Exception{
+        this.turn.Turn(a);
     }
-    public keyEcouteur getKeyEcouteur(){
-        return this.k;
-    }
-
-
-
-
 }

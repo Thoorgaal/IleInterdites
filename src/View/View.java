@@ -6,8 +6,8 @@ public class View {
     private Fenetre fen;
     private Model model;
 
-    public View(Model m ,keyEcouteur k){
-        this.fen = new Fenetre(1080,920,m,k);
+    public View(Model m, Control c){
+        this.fen = new Fenetre(1080,920,m,c);
         this.model = m;
     }
 

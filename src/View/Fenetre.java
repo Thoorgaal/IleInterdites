@@ -1,6 +1,5 @@
 package View;
 import javax.swing.*;
-import java.awt.event.*;
 
 import Model.Model;
 import Control.*;
@@ -10,16 +9,20 @@ public class Fenetre extends JFrame {
     private Contenu  content;
     private int width,height;
     private keyEcouteur k;
-    public Fenetre(int width,int height,Model model,keyEcouteur k){
+    public Fenetre(int width,int height,Model model, Control c){
         super("Iles Interdites");
-        this.k = k;
+
         this.width = width;
         this.height = height;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(width,height);
-        this.content = new Contenu(this,model.getPlateau(), model.getJoueurs());
-        this.addKeyListener(k);
+
+        this.content = new Contenu(this,model.getPlateau(), model.getJoueurs(), c);
         this.add(this.content);
+
+        this.k = new keyEcouteur(this, c);
+        this.addKeyListener(this.k);
+
         this.setVisible(true);
         this.setFocusable(true);
     }
