@@ -1,16 +1,13 @@
 package Control;
 import  Model.*;
-import java.util.ArrayList;
-import Utilitaire.random;
-import View.*;
 
 public class Control {
     private Model model;
-    private Tour turn;
+    private Partie turn;
 
     public Control(Model m){
         this.model = m;
-        this.turn = new Tour(m);
+        this.turn = new Partie(m);
 
     }
     public void newTurn() throws  Exception{

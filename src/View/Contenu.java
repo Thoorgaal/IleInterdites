@@ -1,5 +1,5 @@
 package View;
-package View;
+
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
@@ -72,16 +72,16 @@ public class Contenu extends JPanel{
                             case ARTEFACTCASE:
                                 if (c.hasArte()) {
                                     switch (c.getArtefactType()) {
-                                        case AIR:
+                                        case MATHS:
                                             g.drawImage(imgMaths, x, y, null);
                                             break;
-                                        case EAU:
+                                        case PHYSIQUE:
                                             g.drawImage(imgPhysique, x, y, null);
                                             break;
-                                        case FEU:
+                                        case SPORT:
                                             g.drawImage(imgSport, x, y, null);
                                             break;
-                                        case TERRE:
+                                        case HISTOIRE:
                                             g.drawImage(imgHistoire, x, y, null);
                                             break;
 

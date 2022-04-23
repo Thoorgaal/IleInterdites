@@ -20,6 +20,7 @@ public class Partie {
 
     private int tJ;
     private int action_realisee;
+    private boolean win,lost;
 
     public Partie(Model m){
         this.m = m;
@@ -29,6 +30,8 @@ public class Partie {
         this .nbJoueur = this.joueurs.size();
         this.tJ =0;
         action_realisee = 0;
+        this.win = false;
+        this.lost = false;
     }
     public void Turn(Action a) throws Exception{
         if(this.action_realisee < maxAction) {
@@ -102,13 +105,18 @@ public class Partie {
 
     public void endTurn() throws Exception{
         this.innonde(3);
+        this.win = this.m.win();
+        this.lost = this.m.kill();
+        if(this.lost){
+            System.out.println("Lost");
+            System.exit(0);
+        }
         int alea = random.randInt(0,1);
         if(alea == 1){
             Joueur actu = this.joueurs.get(tJ);
             ArrayList<ArtefactType> to_inspect = actu.getNonPoss();
-            actu.prendPossession(new Cle(random.getRandomElt(to_inspect)));
+            if(to_inspect.size()!=0)actu.prendPossession(new Cle(random.getRandomElt(to_inspect)));
         }
-        System.out.println(this.joueurs.get(tJ));
         this.action_realisee = 0;
         this.tJ = (tJ+1)%nbJoueur;
     }
