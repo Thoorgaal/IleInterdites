@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Joueur {
     private Case c;
+    private boolean gagne;
     private String nom;
     private ArrayList<Objet> inventaire;
     private int[] pos;
@@ -13,6 +14,8 @@ public class Joueur {
         this.nom = nom;
         this.inventaire = new ArrayList<Objet>();
         this.pos = c.getPos();
+        this.gagne = false;
+
     }
 
     public String toString(){
@@ -50,5 +53,12 @@ public class Joueur {
         }
         this.c.setEtat(EtatCase.NORMAL);
         return true;
+    }
+
+    public boolean win() {
+        return gagne;
+    }
+    public void aGagne(){
+        this.gagne = true;
     }
 }

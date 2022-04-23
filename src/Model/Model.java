@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Model {
     private Plateau plateau;
     private ArrayList<Joueur> joueurs;
+    private ArrayList<Joueur> gagnants;
     public Model(int w,int h,ArrayList<String> noms,ArrayList<int[]> pos ) throws Exception{
         this.plateau = new Plateau(w,h);
         this.joueurs = new ArrayList<Joueur>();
@@ -20,16 +21,17 @@ public class Model {
                 throw e;
             }
         }
+        this.gagnants = new ArrayList<Joueur>();
     }
-    public void InitiateSimple(){
+    public void InitiateSimple() throws Exception{
         this.plateau.InitiateSimple();
+        this.plateau.placeHeliport(this.plateau.getNormal());
     }
     public void InitiateRandom(int n) throws Exception{
-        try{
-            this.plateau.InitiateRandom(n);
-        }catch (Exception e){
-            throw e;
-        }
+        this.plateau.InitiateRandom(n);
+        this.plateau.placeHeliport(this.plateau.getNormal());
+
+
     }
 
     public String toString(){

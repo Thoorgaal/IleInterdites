@@ -1,6 +1,7 @@
 package Model;
 import java.io.StringReader;
 import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import  java.util.ArrayList;
 import Utilitaire.List;
@@ -21,6 +22,7 @@ public class Plateau {
             }
         }
     }
+
     public boolean is_in(int[] pos) throws Exception{
         if(pos.length !=2){
             throw new IllegalArgumentException("len(pos) should be 2");
@@ -109,6 +111,18 @@ public class Plateau {
         }
         return false;
     }
+    public ArrayList<Case> getNormal(){
+        //retourne l'ensemble des cases normales
+        ArrayList<Case> render = new ArrayList<Case>();
+        for(ArrayList<Case> p : this.plat){
+            for(Case c: p){
+                if(c.getEtat() == EtatCase.NORMAL){
+                    render.add(c);
+                }
+            }
+        }
+        return render;
+    }
     public ArrayList<Case> getAbleInn() throws Exception{
         //retourne l'ensemble des cases avec un voisin innondable
         ArrayList<Case> render = new ArrayList<Case>();
@@ -186,4 +200,24 @@ public class Plateau {
 
 
     }
+    public void placeHeliport(ArrayList<Case> p)throws Exception{
+        Case c = random.getRandomElt(p);
+       c.setType(type.HELIPORT);
+
+    }
+    public Case getH()throws Exception{
+        for(ArrayList<Case> p : this.plat){
+            for(Case c : p){
+                System.out.println(c);
+                if(c.what() == type.HELIPORT){
+                    return c;
+                }
+            }
+        }
+        throw new RuntimeException("there is no heliport");
+
+    }
+
+
+
 }

@@ -47,6 +47,7 @@ public class Contenu extends JPanel{
         Image imgInnonde = Toolkit.getDefaultToolkit().getImage("images/10_20.png");
         Image imgSubmerge = Toolkit.getDefaultToolkit().getImage("images/0_20.png");
         Image imgNormal = Toolkit.getDefaultToolkit().getImage("images/tatami.png");
+        Image imgDiplome = Toolkit.getDefaultToolkit().getImage("images/diplome.jpeg");
         for(ArrayList<Case> l : this.plat.getPlat()){
             for(Case c : l){
                 if(c.getEtat() == EtatCase.INNONDE){
@@ -54,7 +55,17 @@ public class Contenu extends JPanel{
                 }else if(c.getEtat() ==EtatCase.SUBMERGE) {
                     g.drawImage(imgSubmerge, x,y, null);
                 }else if(c.getEtat() ==EtatCase.NORMAL){
-                    g.drawImage(imgNormal, x,y, null);
+                    try{
+                        switch (c.what()){
+                            case NORMAL:
+                                g.drawImage(imgNormal, x,y, null);
+                                break;
+                            case HELIPORT:
+                                g.drawImage(imgDiplome, x,y, null);
+                        }
+                    }catch (Exception ex){
+                        ex.printStackTrace();
+                    }
                 }
                 g.setColor(this.fond);
                 g.drawRect(x,y,Case.width,Case.height);

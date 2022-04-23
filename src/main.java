@@ -87,6 +87,7 @@ public class main {
             m = new Model(15,15,noms,pos);
             m.InitiateRandom(25);
             ArrayList<Joueur> j = m.getJoueurs();
+            System.out.println(m.getPlateau().getH());
 
             Joueur J = j.get(0);
             Joueur j2 =j.get(1);
