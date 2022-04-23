@@ -1,8 +1,5 @@
 package Control;
 import  Model.*;
-import java.util.ArrayList;
-import Utilitaire.random;
-import View.*;
 
 public class Control {
     private Model model;

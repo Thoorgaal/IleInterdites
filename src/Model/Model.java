@@ -7,7 +7,8 @@ public class Model {
     private ArrayList<Joueur> joueurs;
     private ArrayList<ArtefactType> allTypeArte;
 
-    private ArrayList<Joueur> gagnants;
+
+
     public Model(int w,int h,ArrayList<String> noms,ArrayList<int[]> pos ) throws Exception{
         this.plateau = new Plateau(w,h);
         this.joueurs = new ArrayList<Joueur>();
@@ -23,8 +24,8 @@ public class Model {
                 throw e;
             }
         }
-        this.gagnants = new ArrayList<Joueur>();
         this.allTypeArte = ArtefactType.getAll();
+
     }
     public void InitiateSimple() throws Exception{
         this.plateau.InitiateSimple();
@@ -73,7 +74,10 @@ public class Model {
         return j.assecher();
     }
     public boolean ramasser(Joueur j){
-        ArtefactType t = j.getCase().getArtefactType();
+        if(!j.getCase().hasArte()){
+            return false;
+        }
+                ArtefactType t = j.getCase().getArtefactType();
          if(j.prendArtefac()){
              this.plateau.getTo_find().remove(t);
              return true;
@@ -85,7 +89,33 @@ public class Model {
             return false;
         }
         int[] pos = this.plateau.getH().getPos();
+        for(Joueur j : this.joueurs){
+            if(j.getCase().getPos() != pos){
+                return false;
+            }
+        }
         return true;
+    }
+
+    public boolean isDead(Joueur j,int[] pos) throws Exception{
+        ArrayList<Case> dir  = this.plateau.getCaseInBoard(pos);
+        for(Case c : dir){
+            if(c.getEtat() !=EtatCase.SUBMERGE){
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean kill() throws Exception{
+        for(Joueur j: this.joueurs){
+            if(this.isDead(j,j.getPos())){
+                this.joueurs.remove(j);
+                System.out.println(j);
+                return true;
+
+            }
+        }
+        return false;
     }
 
 }

@@ -57,7 +57,6 @@ public class Contenu extends JPanel{
         Image imgMaths = Toolkit.getDefaultToolkit().getImage("images/maths.jpeg");
         Image imgPhysique = Toolkit.getDefaultToolkit().getImage("images/physique.jpeg");
         Image imgSport = Toolkit.getDefaultToolkit().getImage("images/sport.jpeg");
-
         Image imgHistoire = Toolkit.getDefaultToolkit().getImage("images/histoire.png");
         for (ArrayList<Case> l : this.plat.getPlat()) {
             for (Case c : l) {
