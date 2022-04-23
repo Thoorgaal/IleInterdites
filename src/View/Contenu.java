@@ -48,6 +48,10 @@ public class Contenu extends JPanel{
         Image imgSubmerge = Toolkit.getDefaultToolkit().getImage("images/0_20.png");
         Image imgNormal = Toolkit.getDefaultToolkit().getImage("images/tatami.png");
         Image imgDiplome = Toolkit.getDefaultToolkit().getImage("images/diplome.jpeg");
+        Image imgMaths = Toolkit.getDefaultToolkit().getImage("images/maths.jpeg");
+        Image imgPhysique = Toolkit.getDefaultToolkit().getImage("images/physique.jpeg");
+        Image imgSport = Toolkit.getDefaultToolkit().getImage("images/sport.jpeg");
+        Image imgHistoire = Toolkit.getDefaultToolkit().getImage("images/histoire.jpeg");
         for(ArrayList<Case> l : this.plat.getPlat()){
             for(Case c : l){
                 if(c.getEtat() == EtatCase.INNONDE){
@@ -62,6 +66,25 @@ public class Contenu extends JPanel{
                                 break;
                             case HELIPORT:
                                 g.drawImage(imgDiplome, x,y, null);
+                                break;
+                            case ARTEFACTCASE:
+                                if(c.hasArte()){
+                                    switch (c.getArtefactType()){
+                                        case AIR :
+                                            g.drawImage(imgMaths,x,y,null);
+                                            break;
+                                        case EAU:
+                                            g.drawImage(imgPhysique,x,y,null);
+                                            break;
+                                        case FEU:
+                                            g.drawImage(imgSport,x,y,null);
+                                            break;
+                                        case TERRE:
+                                            g.drawImage(imgHistoire,x,y,null);
+                                            break;
+
+                                    }
+                                }
                         }
                     }catch (Exception ex){
                         ex.printStackTrace();

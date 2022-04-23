@@ -1,8 +1,24 @@
 package Model;
 
-public class Artefact extends Objet{
+import java.util.StringTokenizer;
+import java.util.spi.AbstractResourceBundleProvider;
+
+public class Artefact extends victoryObject{
+    public Artefact(ArtefactType t){
+        this.t = t;
+    }
+
     @Override
     public String toString() {
-        return null;
+        return "(Artefact, type : " + this.t + ")";
+    }
+    @Override
+    public ArtefactType what(){
+        return this.t;
+    }
+
+    @Override
+    public boolean isKey() {
+        return false;
     }
 }

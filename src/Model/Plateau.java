@@ -217,6 +217,16 @@ public class Plateau {
         throw new RuntimeException("there is no heliport");
 
     }
+    public void setArtefact(ArrayList<ArtefactType> a) throws Exception {
+        ArrayList<Case> to_change = this.getNormal();
+        to_change.remove(this.getH());
+        for(ArtefactType art : a){
+            Case c = random.getRandomElt(to_change);
+            c.setArtefact(art);
+            to_change.remove(c);
+        }
+
+    }
 
 
 

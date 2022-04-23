@@ -30,5 +30,12 @@ public class List {
         }
         return render;
     }
+    public static <T> ArrayList<T> fromListGetArray(T[] l){
+        ArrayList<T> render = new ArrayList<T>();
+        for(T elt : l){
+            render.add(elt);
+        }
+        return render;
+    }
 
 }

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class Model {
     private Plateau plateau;
     private ArrayList<Joueur> joueurs;
+    private ArrayList<ArtefactType> allTypeArte;
+
     private ArrayList<Joueur> gagnants;
     public Model(int w,int h,ArrayList<String> noms,ArrayList<int[]> pos ) throws Exception{
         this.plateau = new Plateau(w,h);
@@ -22,15 +24,17 @@ public class Model {
             }
         }
         this.gagnants = new ArrayList<Joueur>();
+        this.allTypeArte = ArtefactType.getAll();
     }
     public void InitiateSimple() throws Exception{
         this.plateau.InitiateSimple();
         this.plateau.placeHeliport(this.plateau.getNormal());
+        this.plateau.setArtefact(this.allTypeArte);
     }
     public void InitiateRandom(int n) throws Exception{
         this.plateau.InitiateRandom(n);
         this.plateau.placeHeliport(this.plateau.getNormal());
-
+        this.plateau.setArtefact(this.allTypeArte);
 
     }
 
