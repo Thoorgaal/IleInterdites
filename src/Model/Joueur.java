@@ -45,14 +45,8 @@ public class Joueur {
     public boolean is_in(victoryObject o){
         return this.inventaire.getVicObjets().indexOf(o) !=-1;
     }
-    public boolean is_in(Objet o){
-        return this.inventaire.getObjets().indexOf(o) !=-1;
-    }
     public boolean is_inK(ArtefactType t){
         return this.inventaire.getIdK(t) !=-1;
-    }
-    public void prendPossession(Objet o){
-        this.inventaire.addObject(o);
     }
     public boolean prendPossession(victoryObject o){
         //return true et ajoute l'objet si celui ci n'est pas dans l'inventaire du joueur
