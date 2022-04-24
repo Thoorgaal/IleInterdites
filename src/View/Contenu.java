@@ -1,17 +1,16 @@
 package View;
-import java.awt.*;
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.event.*;
-import java.io.File;
 
 import Control.Control;
+import Control.ETatPartie;
 import Model.*;
 import Utilitaire.List;
-import Utilitaire.Images_fonctions;
 
-import java.awt.image.BufferedImage;
-import  java.util.ArrayList;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Contenu extends JPanel{
     private JFrame fen;
@@ -263,6 +262,11 @@ public class Contenu extends JPanel{
                     }
                 }
             } catch (Exception e) {e.printStackTrace();}
+        }
+        if(this.c.getEtatPartie() == ETatPartie.SACSABLE){
+            int[] possac = this.c.getCaseSacSable();
+            g.setColor(Color.BLUE);
+            g.drawRect(20+50*possac[0], 20+50*possac[1] ,50,50);
         }
     }
 

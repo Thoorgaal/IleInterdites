@@ -86,6 +86,23 @@ public class keyEcouteur implements KeyListener {
                 }catch (Exception ex){
                     ex.printStackTrace();
                 }
+                break;
+
+            case 'h':
+                try{
+                    this.c.Turn(Action.HELICO);
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
+                break;
+
+            case 'x':
+                try{
+                    this.c.Turn(Action.SACDESABLE);
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
+                break;
         }
         this.f.Update();
     }

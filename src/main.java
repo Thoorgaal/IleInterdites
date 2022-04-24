@@ -11,24 +11,9 @@ import javax.swing.*;
 
 public class main {
     public static void main(String[] args){
-        ArrayList<String> noms = new ArrayList<String>();
-        ArrayList<int[]> pos = new ArrayList<int[]>();
-        noms.add("Victorien");
-        noms.add("Jolan");
-        noms.add("COCO");
-        noms.add("ABel");
-        int[] p = {5,5};
-        int[] p2 = {5,5};
-        int[] p3 = {5,5};
-        int[] p4 = {5,5};
-        pos.add(p);
-        pos.add(p2);
-        pos.add(p3);
-        pos.add(p4);
-        start_game(noms,pos);
 
 
-        /*JFrame menu = new JFrame("Menu");
+        JFrame menu = new JFrame("Menu");
         menu.setLayout(null);
         menu.setPreferredSize(new Dimension(400, 250));
 
@@ -64,7 +49,15 @@ public class main {
                 int i = 1;
                 ArrayList<int[]> pos = new ArrayList<int[]>();
                 for(String n:noms){
-                    pos.add(new int[]{i, i});
+                    if(i == 1){
+                        pos.add(new int[]{2, 2});
+                    } else if (i == 2) {
+                        pos.add(new int[]{12, 12});
+                    } else if (i == 3) {
+                        pos.add(new int[]{2, 12});
+                    }else if (i == 4){
+                        pos.add(new int[]{12, 2});
+                    }
                     i++;
                 }
                 menu.dispose();
@@ -83,7 +76,7 @@ public class main {
         menu.add(t4);
         menu.add(b);
         menu.pack();
-        menu.setVisible(true);*/
+        menu.setVisible(true);
     }
     public static void start_game(ArrayList<String> noms,ArrayList<int[]> pos){
         Model m;

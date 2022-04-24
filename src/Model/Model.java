@@ -1,5 +1,6 @@
 package Model;
 
+import javax.swing.text.Position;
 import java.util.ArrayList;
 
 public class Model {
@@ -70,9 +71,28 @@ public class Model {
         j.move(nC);
         return true;
     }
+    public boolean movePlayerhelico(Joueur j, Direction d) throws Exception{
+        int[] pos = d.getPos(j.getPos());
+        if(!this.plateau.is_in(pos)){
+            return false;
+        }
+        Case nC = this.plateau.get(pos);
+        j.move(nC);
+        return true;
+    }
     public boolean  assecher(Joueur j){
         //renvoie vrai et asseche la case si c'est possible, sinon ne fait rien et renvoie false
         return j.assecher();
+    }
+    public boolean  assecher(int[] p){
+        try {
+            Case c = this.plateau.get(p);
+            if(c.getEtat() != EtatCase.INNONDE) return false;
+            c.setEtat(EtatCase.NORMAL);
+        }catch(Exception e){
+            return false;
+        }
+        return true;
     }
     public boolean ramasser(Joueur j){
         if(!j.getCase().hasArte()){

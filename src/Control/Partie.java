@@ -7,8 +7,12 @@ import Utilitaire.random;
 import Model.Direction;
 import Model.ArtefactType;
 import Model.Cle;
+import javax.swing.*;
 
+import javax.swing.text.Position;
+import java.awt.event.*;
 import java.util.ArrayList;
+import java.awt.Dimension;
 import java.util.Random;
 
 public class Partie {
@@ -23,6 +27,9 @@ public class Partie {
     private int action_realisee;
     private boolean win,lost;
 
+    private ETatPartie etatPartie = ETatPartie.NORMAL;
+    private int[] pos_sac_de_sable;
+
     public Partie(Model m){
         this.m = m;
         this.plateau = m.getPlateau();
@@ -35,13 +42,90 @@ public class Partie {
         this.lost = false;
     }
     public void Turn(Action a) throws Exception{
-        if(this.action_realisee < maxAction) {
+        if(this.etatPartie == ETatPartie.NORMAL) {
+            if (this.action_realisee < maxAction) {
+                switch (a) {
+                    case HAUT:
+                        try {
+                            if (!this.m.movePlayer(this.joueurs.get(this.tJ), Direction.HAUT)) {
+                                System.out.println("yo");
+                                this.action_realisee--;
+                            }
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                        break;
+                    case GAUCHE:
+                        try {
+                            if (!this.m.movePlayer(this.joueurs.get(this.tJ), Direction.GAUCHE)) {
+                                System.out.println("yo");
+                                this.action_realisee--;
+                            }
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                        break;
+                    case DROITE:
+                        try {
+                            if (!this.m.movePlayer(this.joueurs.get(this.tJ), Direction.DROITE)) {
+                                System.out.println("yo");
+                                this.action_realisee--;
+                            }
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                        break;
+                    case BAS:
+                        try {
+                            if (!this.m.movePlayer(this.joueurs.get(this.tJ), Direction.BAS)) {
+                                this.action_realisee--;
+                                System.out.println("yo");
+                            }
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                        break;
+                    case ASSECHE:
+                        try {
+                            if (!this.m.assecher(this.joueurs.get(this.tJ))) {
+                                this.action_realisee--;
+
+                            }
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                        break;
+                    case RAMASSE:
+                        if (!this.m.ramasser(this.joueurs.get(this.tJ))) {
+                            this.action_realisee--;
+                        }
+                        break;
+                    case HELICO:
+                        if(this.joueurs.get(this.tJ).getInventaire().haselico) {
+                            this.etatPartie = ETatPartie.HELICO;
+                            this.joueurs.get(this.tJ).getInventaire().haselico = false;
+                        }else{
+                            this.action_realisee--;
+                        }
+                        break;
+                    case SACDESABLE:
+                        if(this.joueurs.get(this.tJ).getInventaire().hassacsable) {
+                            this.etatPartie = ETatPartie.SACSABLE;
+                            this.joueurs.get(this.tJ).getInventaire().hassacsable = false;
+                            pos_sac_de_sable = this.joueurs.get(this.tJ).getPos();
+                        }else{
+                            this.action_realisee--;
+                        }
+                        break;
+                }
+                this.action_realisee++;
+            }
+        }else if(this.etatPartie == ETatPartie.HELICO){
             switch (a) {
                 case HAUT:
                     try {
-                        if(!this.m.movePlayer(this.joueurs.get(this.tJ), Direction.HAUT)) {
+                        if (!this.m.movePlayerhelico(this.joueurs.get(this.tJ), Direction.HAUT)) {
                             System.out.println("yo");
-                            this.action_realisee--;
                         }
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -49,9 +133,8 @@ public class Partie {
                     break;
                 case GAUCHE:
                     try {
-                        if(!this.m.movePlayer(this.joueurs.get(this.tJ), Direction.GAUCHE)){
+                        if (!this.m.movePlayerhelico(this.joueurs.get(this.tJ), Direction.GAUCHE)) {
                             System.out.println("yo");
-                            this.action_realisee--;
                         }
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -59,9 +142,8 @@ public class Partie {
                     break;
                 case DROITE:
                     try {
-                        if(!this.m.movePlayer(this.joueurs.get(this.tJ), Direction.DROITE)){
+                        if (!this.m.movePlayerhelico(this.joueurs.get(this.tJ), Direction.DROITE)) {
                             System.out.println("yo");
-                            this.action_realisee--;
                         }
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -69,30 +151,48 @@ public class Partie {
                     break;
                 case BAS:
                     try {
-                        if(!this.m.movePlayer(this.joueurs.get(this.tJ), Direction.BAS)){
+                        if (!this.m.movePlayerhelico(this.joueurs.get(this.tJ), Direction.BAS)) {
                             this.action_realisee--;
-                            System.out.println("yo");
                         }
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
                     break;
-                case ASSECHE:
-                    try{
-                        if(!this.m.assecher(this.joueurs.get(this.tJ))){
-                            this.action_realisee--;
-
+                case HELICO:
+                    this.etatPartie = ETatPartie.NORMAL;
+            }
+        }else{
+            switch (a) {
+                case HAUT:
+                    if(m.getPlateau().is_in(Direction.HAUT.getPos(pos_sac_de_sable))){
+                        pos_sac_de_sable = Direction.HAUT.getPos(pos_sac_de_sable);
+                    }
+                    break;
+                case GAUCHE:
+                    if(m.getPlateau().is_in(Direction.GAUCHE.getPos(pos_sac_de_sable))){
+                        pos_sac_de_sable = Direction.GAUCHE.getPos(pos_sac_de_sable);
+                    }
+                    break;
+                case DROITE:
+                    if(m.getPlateau().is_in(Direction.DROITE.getPos(pos_sac_de_sable))){
+                        pos_sac_de_sable = Direction.DROITE.getPos(pos_sac_de_sable);
+                    }
+                    break;
+                case BAS:
+                    if(m.getPlateau().is_in(Direction.BAS.getPos(pos_sac_de_sable))){
+                        pos_sac_de_sable = Direction.BAS.getPos(pos_sac_de_sable);
+                    }
+                    break;
+                case SACDESABLE:
+                    try {
+                        if (this.m.assecher(pos_sac_de_sable)) {
+                            this.etatPartie = ETatPartie.NORMAL;
                         }
-                    }catch (Exception ex){
+                    } catch (Exception ex) {
                         ex.printStackTrace();
                     }
                     break;
-                case RAMASSE:
-                    if(!this.m.ramasser(this.joueurs.get(this.tJ))){
-                        this.action_realisee--;
-                    }
             }
-            this.action_realisee ++;
         }
     }
 
@@ -102,12 +202,46 @@ public class Partie {
         this.win = this.m.win();
         this.lost = this.m.lost();
         if(this.lost){
-            System.out.println("Lost");
-            System.exit(0);
+            JFrame menu = new JFrame("Fin");
+            menu.setLayout(null);
+            menu.setPreferredSize(new Dimension(400, 250));
+
+            JLabel l = new JLabel("Perdu");
+            l.setLocation(130,10);
+            l.setSize(200,20);
+            JButton b = new JButton("Finir");
+            b.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    System.exit(0);
+                }
+            });
+            b.setLocation(100,180);
+            b.setSize(200,20);
+            menu.add(b);
+            menu.add(l);
+            menu.pack();
+            menu.setVisible(true);
         }
         if(this.win){
-            System.out.println("win");
-            System.exit(0);
+            JFrame menu = new JFrame("Fin");
+            menu.setLayout(null);
+            menu.setPreferredSize(new Dimension(400, 250));
+
+            JLabel l = new JLabel("Gagné");
+            l.setLocation(130,10);
+            l.setSize(200,20);
+            JButton b = new JButton("Finir");
+            b.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    System.exit(0);
+                }
+            });
+            b.setLocation(100,180);
+            b.setSize(200,20);
+            menu.add(b);
+            menu.add(l);
+            menu.pack();
+            menu.setVisible(true);
         }
         int alea = random.randInt(0,1);
         if(alea == 1){
@@ -137,7 +271,7 @@ public class Partie {
         this.action_realisee = 0;
         this.tJ = (tJ+1)%nbJoueur;
     }
-    private void innonde(int n)throws Exception{
+    private void innonde(int n) throws Exception{
         for(int i =0; i<n;i++){
             try{
                 ArrayList<Case> to_inspect = this.plateau.getAbleInn();
@@ -155,4 +289,6 @@ public class Partie {
     public int getToursRestant(){
         return Partie.maxAction - this.action_realisee;
     }
+    public ETatPartie getEtatPartie(){return this.etatPartie;}
+    public int[] getCaseSacSable(){return this.pos_sac_de_sable;}
 }
