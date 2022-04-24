@@ -12,17 +12,18 @@ public class Plateau {
     private ArrayList<ArrayList<Case>> plat;
     private ArrayList<ArtefactType> to_find;
     private int width, height;
-    public Plateau(int w,int h){
+    public Plateau(int w,int h) {
         this.width = w;
         this.height = h;
         this.plat = new ArrayList<ArrayList<Case>>();
-        for(int i = 0;i<h;i++){
-            this.plat.add( new ArrayList<Case>());
-            for(int j = 0;j<w;j++){
-                this.plat.get(i).add(new Case(j,i,EtatCase.NORMAL));
+        for (int i = 0; i < h; i++) {
+            this.plat.add(new ArrayList<Case>());
+            for (int j = 0; j < w; j++) {
+                this.plat.get(i).add(new Case(j, i, EtatCase.NORMAL));
             }
         }
     }
+
 
     public boolean is_in(int[] pos) throws Exception{
         if(pos.length !=2){

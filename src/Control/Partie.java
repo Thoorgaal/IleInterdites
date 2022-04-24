@@ -10,7 +10,7 @@ import Model.Direction;
 import Model.ArtefactType;
 import Model.Cle;
 import Echange.SelArte;
-
+import Model.EtatCase;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -95,7 +95,30 @@ public class Partie {
                         this.action_realisee--;
                     }
                 case ECHANGE:
-                    SelectJoueur e = new SelectJoueur(List.getDeleted(this.joueurs.get(this.tJ),this.m.getJoueurInPos(this.joueurs.get(this.tJ).getPos())),this.joueurs.get(this.tJ).getInventaire().getK(),this.joueurs.get(this.tJ));
+                    SelectJoueur e = new SelectJoueur(List.getDeleted(this.joueurs.get(this.tJ),this.m.getJoueurInPos(this.joueurs.get(this.tJ).getPos())),this.joueurs.get(this.tJ).getInventaire().getK(),this.joueurs.get(this.tJ),this);
+
+                    if(SelectJoueur.cancel){
+                        this.action_realisee--;
+                        SelectJoueur.cancel = false;
+                    }
+                    break;
+                case CREUSE:
+                    Case cJ =this.joueurs.get(this.tJ).getCase();
+                    if(cJ.getEtat() == EtatCase.NORMAL ){
+                        int i = random.randInt(0,3);
+                            switch (i){
+                                case 0 :
+                                    cJ.setEtat(EtatCase.INNONDE);
+                                    break;
+                                case 1:
+                                    Joueur j = this.joueurs.get(this.tJ);
+                                    ArrayList<ArtefactType> to_inspect = List.getDeleted(List.getConcat(j.getInventaire().getK(),j.getInventaire().getA()),ArtefactType.getAll());
+                                    j.prendPossession(new Cle(random.getRandomElt(to_inspect)));
+
+
+                                break;
+                            }
+                        }
 
 
             }
@@ -165,4 +188,8 @@ public class Partie {
     public Model getModel(){
         return this.m;
     }
+    public void decrementA(){
+        this.action_realisee--;
+    }
+
 }

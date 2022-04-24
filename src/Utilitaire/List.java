@@ -40,6 +40,16 @@ public class List {
         }
         return render;
     }
+    public static <T> ArrayList<T> getDeleted(ArrayList<T> elt, ArrayList<T> list){
+        ArrayList<T> render = new ArrayList<T>();
+        for(T e:list){
+            render.add(e);
+        }
+        for(T e : elt){
+            render = Intersect(render,getDeleted(e,list ));
+        }
+        return render;
+    }
     public static <T> ArrayList<T> fromListGetArray(T[] l){
         ArrayList<T> render = new ArrayList<T>();
         for(T elt : l){
@@ -54,5 +64,11 @@ public class List {
             }
         }
         return -1;
+    }
+    public static <T> ArrayList<T> getConcat(ArrayList<T> l1,ArrayList<T> l2){
+        ArrayList<T> render = new ArrayList<T>();
+        render.addAll(l1);
+        render.addAll(l2);
+        return render;
     }
 }

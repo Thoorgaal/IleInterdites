@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import Control.Partie;
 
 import Model.Cle;
 import Model.Joueur;
@@ -15,14 +16,15 @@ public class SelArte extends JFrame {
     private ArtefactType sel;
     private JPanel pan;
     private Joueur s,c;
-    private boolean cancel ;
+    private Partie p;
 
 
-    public SelArte(ArrayList<ArtefactType> arte,Joueur sel,Joueur courant){
+
+    public SelArte(ArrayList<ArtefactType> arte,Joueur sel,Joueur courant,Partie p){
         super("Sélection de la clé  à échanger");
         this.s  = sel;
+        this.p = p;
         this.c = courant;
-        this.cancel = false;
         System.out.println(s);
         System.out.println("bite");
         this.arte = arte;
@@ -57,14 +59,15 @@ public class SelArte extends JFrame {
                     System.out.println(s);
                 }
             });
-            JButton cancel = new JButton("Annuler");
-            cancel.addActionListener(new ActionListener() {
+            JButton c = new JButton("Annuler");
+             c.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                   // cancel = true;
+                    SwingUtilities.getWindowAncestor(pan).dispose();
+                    p.decrementA();
                 }
             });
-            render.add(cancel);
+            render.add(c);
         }
         return render;
     }
