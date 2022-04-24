@@ -34,9 +34,9 @@ public class Inventaire {
     public ArrayList<Objet> getObjets(){
         return this.objets;
     }
-    public boolean hasArtefactK(ArtefactType a){
+    public boolean hasArtefactT(ArtefactType a){
         for(victoryObject v : vicObjets){
-            if(v.isKey() && v.what() == a){
+            if( v.what() == a){
                 return true;
             }
         }
@@ -75,5 +75,15 @@ public class Inventaire {
         return render;
 
 
+    }
+    public ArrayList<Artefact> getArt(){
+        ArrayList<Artefact> render = new ArrayList<Artefact>();
+        for(victoryObject o : this.vicObjets){
+            if(!o.isKey()){
+                render.add((Artefact) o);
+
+            }
+        }
+        return render;
     }
 }

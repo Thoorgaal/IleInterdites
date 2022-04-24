@@ -61,13 +61,14 @@ public class Model {
     public ArrayList<int[]> getIndSubmergee(){
         return this.plateau.getIndCaseSubmergee();
     }
-    public void movePlayer(Joueur j, Direction d) throws Exception{
+    public boolean movePlayer(Joueur j, Direction d) throws Exception{
         int[] pos = d.getPos(j.getPos());
-        if(!this.plateau.is_in(pos)){
-            throw new IllegalArgumentException("the direction given leads to nowhere");
+        if(!this.plateau.is_in(pos) || this.plateau.get(pos).getEtat() == EtatCase.SUBMERGE){
+            return false;
         }
         Case nC = this.plateau.get(pos);
         j.move(nC);
+        return true;
     }
     public boolean  assecher(Joueur j){
         //renvoie vrai et asseche la case si c'est possible, sinon ne fait rien et renvoie false
@@ -77,7 +78,8 @@ public class Model {
         if(!j.getCase().hasArte()){
             return false;
         }
-                ArtefactType t = j.getCase().getArtefactType();
+
+        ArtefactType t = j.getCase().getArtefactType();
          if(j.prendArtefac()){
              this.plateau.getTo_find().remove(t);
              return true;
@@ -85,15 +87,19 @@ public class Model {
          return false;
     }
     public boolean win() throws Exception {
+        System.out.println(this.plateau.getTo_find().size());
         if(this.plateau.getTo_find().size() != 0){
             return false;
         }
         int[] pos = this.plateau.getH().getPos();
         for(Joueur j : this.joueurs){
-            if(j.getCase().getPos() != pos){
+            System.out.println(Integer.toString(pos[0])+ Integer.toString(pos[1]));
+            System.out.println(Integer.toString(j.getPos()[0]) + Integer.toString(j.getPos()[1]));
+            if(j.getCase().getPos()[0] != pos[0] || j.getCase().getPos()[1] != pos[1] ){
                 return false;
             }
         }
+        System.out.println("bite");
         return true;
     }
 
@@ -106,7 +112,7 @@ public class Model {
         }
         return true;
     }
-    public boolean kill() throws Exception{
+    public boolean lost() throws Exception{
         for(Joueur j: this.joueurs){
             if(this.isDead(j,j.getPos())){
                 this.joueurs.remove(j);
@@ -115,7 +121,30 @@ public class Model {
 
             }
         }
+        if(this.plateau.getH().getEtat() == EtatCase.SUBMERGE){
+            return true;
+        }
         return false;
+    }
+    public void update(){
+        for(Joueur j: this.joueurs){
+            for(Artefact a : j.getInventaire().getArt()) {
+                if (this.plateau.getTo_find().indexOf(a.what()) != -1) {
+                    this.plateau.getTo_find().remove(a.what());
+                }
+            }
+        }
+    }
+    public boolean donCle(Joueur j1, Joueur j2, ArtefactType t){
+        if(j1.getPos()[0] != j2.getPos()[0] || j1.getPos()[1] != j2.getPos()[1]){
+            return false;
+        }
+        if(!(j1.getInventaire().getIdK(t) == -1))
+            return false;
+        j2.prendPossession(new Cle(t));
+        j1.removeK(t);
+        return true;
+
     }
 
 }

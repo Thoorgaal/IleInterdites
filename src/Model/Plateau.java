@@ -209,7 +209,6 @@ public class Plateau {
     public Case getH()throws Exception{
         for(ArrayList<Case> p : this.plat){
             for(Case c : p){
-                System.out.println(c);
                 if(c.what() == type.HELIPORT){
                     return c;
                 }

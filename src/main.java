@@ -17,10 +17,10 @@ public class main {
         noms.add("Jolan");
         noms.add("COCO");
         noms.add("ABel");
-        int[] p = {4,4};
-        int[] p2 = {4,4};
-        int[] p3 = {4,7};
-        int[] p4 = {4,2};
+        int[] p = {5,5};
+        int[] p2 = {5,5};
+        int[] p3 = {5,5};
+        int[] p4 = {5,5};
         pos.add(p);
         pos.add(p2);
         pos.add(p3);
@@ -92,11 +92,12 @@ public class main {
             m = new Model(15,15,noms,pos);
             m.InitiateRandom(25);
             ArrayList<Joueur> j = m.getJoueurs();
-            System.out.println(m.getPlateau().getH());
+            j.get(0).ad(new Artefact(ArtefactType.MATHS));
+            j.get(0).ad(new Artefact(ArtefactType.PHYSIQUE));
+            j.get(0).ad(new Artefact(ArtefactType.SPORT));
+            j.get(0).ad(new Artefact(ArtefactType.HISTOIRE));
 
-            Joueur J = j.get(0);
-            Joueur j2 =j.get(1);
-            m.movePlayer(j2,Direction.HAUT);
+
             c = new Control(m);
             View v  = new View(m, c);
         }catch (Exception e) {

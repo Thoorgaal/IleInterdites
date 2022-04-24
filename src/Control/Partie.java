@@ -38,28 +38,40 @@ public class Partie {
             switch (a) {
                 case HAUT:
                     try {
-                        this.m.movePlayer(this.joueurs.get(this.tJ), Direction.HAUT);
+                        if(!this.m.movePlayer(this.joueurs.get(this.tJ), Direction.HAUT)) {
+                            System.out.println("yo");
+                            this.action_realisee--;
+                        }
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
                     break;
                 case GAUCHE:
                     try {
-                        this.m.movePlayer(this.joueurs.get(this.tJ), Direction.GAUCHE);
+                        if(!this.m.movePlayer(this.joueurs.get(this.tJ), Direction.GAUCHE)){
+                            System.out.println("yo");
+                            this.action_realisee--;
+                        }
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
                     break;
                 case DROITE:
                     try {
-                        this.m.movePlayer(this.joueurs.get(this.tJ), Direction.DROITE);
+                        if(!this.m.movePlayer(this.joueurs.get(this.tJ), Direction.DROITE)){
+                            System.out.println("yo");
+                            this.action_realisee--;
+                        }
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
                     break;
                 case BAS:
                     try {
-                        this.m.movePlayer(this.joueurs.get(this.tJ), Direction.BAS);
+                        if(!this.m.movePlayer(this.joueurs.get(this.tJ), Direction.BAS)){
+                            this.action_realisee--;
+                            System.out.println("yo");
+                        }
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
@@ -84,11 +96,16 @@ public class Partie {
     }
 
     public void endTurn() throws Exception{
+        this.m.update();
         this.innonde(3);
         this.win = this.m.win();
-        this.lost = this.m.kill();
+        this.lost = this.m.lost();
         if(this.lost){
             System.out.println("Lost");
+            System.exit(0);
+        }
+        if(this.win){
+            System.out.println("win");
             System.exit(0);
         }
         int alea = random.randInt(0,1);

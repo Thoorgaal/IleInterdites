@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Joueur {
     private Case c;
-    private boolean gagne;
     private String nom;
     private Inventaire inventaire;
     private int[] pos;
@@ -14,8 +13,10 @@ public class Joueur {
         this.nom = nom;
         this.inventaire = new Inventaire();
         this.pos = c.getPos();
-        this.gagne = false;
 
+    }
+    public void ad(victoryObject o){
+        this.inventaire.getVicObjets().add(o);
     }
     public Case getCase(){
         return this.c;
@@ -40,12 +41,7 @@ public class Joueur {
         return true;
     }
 
-    public boolean win() {
-        return gagne;
-    }
-    public void aGagne(){
-        this.gagne = true;
-    }
+
     public boolean is_in(victoryObject o){
         return this.inventaire.getVicObjets().indexOf(o) !=-1;
     }
@@ -67,13 +63,13 @@ public class Joueur {
         ArrayList<ArtefactType> all = ArtefactType.getAll();
         ArrayList<ArtefactType> render = new ArrayList<ArtefactType>();
         for(ArtefactType a : all){
-            if(!this.inventaire.hasArtefactK(a)){
+            if(!this.inventaire.hasArtefactT(a)  ){
                 render.add(a);
             }
         }
         return render;
     }
-    private boolean removeK(ArtefactType t){
+    public boolean removeK(ArtefactType t){
         return this.inventaire.removeK(t);
     }
 
