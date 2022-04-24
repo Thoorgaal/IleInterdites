@@ -9,6 +9,7 @@ import Model.Direction;
 import Model.ArtefactType;
 import Model.Cle;
 import javax.swing.*;
+import Echange.*;
 
 import javax.swing.text.Position;
 import java.awt.event.*;
@@ -251,8 +252,25 @@ public class Partie {
             menu.setVisible(true);
         }
         if(this.win){
-            System.out.println("win");
-            System.exit(0);
+            JFrame menu = new JFrame("Fin");
+            menu.setLayout(null);
+            menu.setPreferredSize(new Dimension(400, 250));
+
+            JLabel l = new JLabel("Gagné");
+            l.setLocation(130,10);
+            l.setSize(200,20);
+            JButton b = new JButton("Finir");
+            b.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    System.exit(0);
+                }
+            });
+            b.setLocation(100,180);
+            b.setSize(200,20);
+            menu.add(b);
+            menu.add(l);
+            menu.pack();
+            menu.setVisible(true);
         }
         int alea = random.randInt(0,1);
         if(alea == 1){

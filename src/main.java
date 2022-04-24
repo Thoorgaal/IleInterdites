@@ -85,12 +85,6 @@ public class main {
             m = new Model(15,15,noms,pos);
             m.InitiateRandom(25);
             ArrayList<Joueur> j = m.getJoueurs();
-            j.get(0).ad(new Cle(ArtefactType.MATHS));
-            j.get(0).ad(new Cle(ArtefactType.PHYSIQUE));
-
-
-
-
             c = new Control(m);
             View v  = new View(m, c);
         }catch (Exception e) {
