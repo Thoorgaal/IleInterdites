@@ -11,6 +11,16 @@ public class List {
         }
         return render;
     }
+    public static <T> ArrayList<T> getDeleted(T elt, ArrayList<T> list){
+        ArrayList<T> render = new ArrayList<T>();
+        for(T e : list){
+            if(e != elt){
+                render.add(e);
+            }
+        }
+        return render;
+    }
+
     public static <T> ArrayList<T> Intersect(ArrayList<T> l1,ArrayList<T> l2){
         ArrayList<T> render = new ArrayList<T>();
         for(T elt : l1){

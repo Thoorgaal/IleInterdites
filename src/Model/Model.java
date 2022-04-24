@@ -146,5 +146,14 @@ public class Model {
         return true;
 
     }
+    public ArrayList<Joueur> getJoueurInPos(int[] pos){
+        ArrayList<Joueur> render = new ArrayList<Joueur>();
+        for(Joueur j : this.joueurs){
+            if(j.getPos()[0] == pos[0] && j.getPos()[1] == pos[1]){
+                render.add(j);
+            }
+        }
+        return render;
+    }
 
 }

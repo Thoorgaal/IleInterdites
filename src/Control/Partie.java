@@ -1,12 +1,15 @@
 package Control;
+import Echange.SelectJoueur;
 import Model.Model;
 import Model.Plateau;
 import Model.Case;
 import Model.Joueur;
+import Utilitaire.List;
 import Utilitaire.random;
 import Model.Direction;
 import Model.ArtefactType;
 import Model.Cle;
+import Echange.SelArte;
 
 import java.util.ArrayList;
 
@@ -90,6 +93,10 @@ public class Partie {
                     if(!this.m.ramasser(this.joueurs.get(this.tJ))){
                         this.action_realisee--;
                     }
+                case ECHANGE:
+                    SelectJoueur e = new SelectJoueur(List.getDeleted(this.joueurs.get(this.tJ),this.m.getJoueurInPos(this.joueurs.get(this.tJ).getPos())),this.joueurs.get(this.tJ).getInventaire().getK(),this.joueurs.get(this.tJ));
+
+
             }
             this.action_realisee ++;
         }
@@ -134,5 +141,8 @@ public class Partie {
     }
     public int getToursRestant(){
         return Partie.maxAction - this.action_realisee;
+    }
+    public Model getModel(){
+        return this.m;
     }
 }

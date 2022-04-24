@@ -23,4 +23,7 @@ public class Control {
     public int getToursRestant(){
         return turn.getToursRestant();
     }
+    public Model getModel(){
+        return this.model;
+    }
 }

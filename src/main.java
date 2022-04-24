@@ -92,10 +92,10 @@ public class main {
             m = new Model(15,15,noms,pos);
             m.InitiateRandom(25);
             ArrayList<Joueur> j = m.getJoueurs();
-            j.get(0).ad(new Artefact(ArtefactType.MATHS));
-            j.get(0).ad(new Artefact(ArtefactType.PHYSIQUE));
-            j.get(0).ad(new Artefact(ArtefactType.SPORT));
-            j.get(0).ad(new Artefact(ArtefactType.HISTOIRE));
+            j.get(0).ad(new Cle(ArtefactType.MATHS));
+            j.get(0).ad(new Cle(ArtefactType.PHYSIQUE));
+
+
 
 
             c = new Control(m);
