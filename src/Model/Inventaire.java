@@ -66,4 +66,22 @@ public class Inventaire {
         }
         return render;
     }
+    public ArrayList<ArtefactType> getK(){
+        ArrayList<ArtefactType> render = new ArrayList<ArtefactType>();
+        for(victoryObject o : this.vicObjets){
+            if(o.isKey()){
+                render.add(o.what());
+            }
+        }
+        return render;
+    }
+    public ArrayList<ArtefactType> getA(){
+        ArrayList<ArtefactType> render = new ArrayList<ArtefactType>();
+        for(victoryObject o : this.vicObjets){
+            if(!o.isKey()){
+                render.add(o.what());
+            }
+        }
+        return render;
+    }
 }

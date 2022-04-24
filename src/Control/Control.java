@@ -23,6 +23,9 @@ public class Control {
     public int getToursRestant(){
         return turn.getToursRestant();
     }
+    public Model getModel(){
+        return this.model;
+    }
     public ETatPartie getEtatPartie(){return this.turn.getEtatPartie();}
     public int[] getCaseSacSable(){return this.turn.getCaseSacSable();}
 }

@@ -3,6 +3,7 @@ import Model.Model;
 import Model.Plateau;
 import Model.Case;
 import Model.Joueur;
+import Utilitaire.List;
 import Utilitaire.random;
 import Model.Direction;
 import Model.ArtefactType;
@@ -11,6 +12,8 @@ import javax.swing.*;
 
 import javax.swing.text.Position;
 import java.awt.event.*;
+import Echange.SelArte;
+import Model.EtatCase;
 import java.util.ArrayList;
 import java.awt.Dimension;
 import java.util.Random;
@@ -117,6 +120,31 @@ public class Partie {
                             this.action_realisee--;
                         }
                         break;
+                    case ECHANGE:
+                        SelectJoueur e = new SelectJoueur(List.getDeleted(this.joueurs.get(this.tJ), this.m.getJoueurInPos(this.joueurs.get(this.tJ).getPos())), this.joueurs.get(this.tJ).getInventaire().getK(), this.joueurs.get(this.tJ), this);
+
+                        if (SelectJoueur.cancel) {
+                            this.action_realisee--;
+                            SelectJoueur.cancel = false;
+                        }
+                        break;
+                    case CREUSE:
+                        Case cJ = this.joueurs.get(this.tJ).getCase();
+                        if (cJ.getEtat() == EtatCase.NORMAL) {
+                            int i = random.randInt(0, 3);
+                            switch (i) {
+                                case 0:
+                                    cJ.setEtat(EtatCase.INNONDE);
+                                    break;
+                                case 1:
+                                    Joueur j = this.joueurs.get(this.tJ);
+                                    ArrayList<ArtefactType> to_inspect = List.getDeleted(List.getConcat(j.getInventaire().getK(), j.getInventaire().getA()), ArtefactType.getAll());
+                                    j.prendPossession(new Cle(random.getRandomElt(to_inspect)));
+
+
+                                    break;
+                            }
+                        }
                 }
                 this.action_realisee++;
             }
@@ -164,22 +192,22 @@ public class Partie {
         }else{
             switch (a) {
                 case HAUT:
-                    if(m.getPlateau().is_in(Direction.HAUT.getPos(pos_sac_de_sable))){
+                    if (m.getPlateau().is_in(Direction.HAUT.getPos(pos_sac_de_sable))) {
                         pos_sac_de_sable = Direction.HAUT.getPos(pos_sac_de_sable);
                     }
                     break;
                 case GAUCHE:
-                    if(m.getPlateau().is_in(Direction.GAUCHE.getPos(pos_sac_de_sable))){
+                    if (m.getPlateau().is_in(Direction.GAUCHE.getPos(pos_sac_de_sable))) {
                         pos_sac_de_sable = Direction.GAUCHE.getPos(pos_sac_de_sable);
                     }
                     break;
                 case DROITE:
-                    if(m.getPlateau().is_in(Direction.DROITE.getPos(pos_sac_de_sable))){
+                    if (m.getPlateau().is_in(Direction.DROITE.getPos(pos_sac_de_sable))) {
                         pos_sac_de_sable = Direction.DROITE.getPos(pos_sac_de_sable);
                     }
                     break;
                 case BAS:
-                    if(m.getPlateau().is_in(Direction.BAS.getPos(pos_sac_de_sable))){
+                    if (m.getPlateau().is_in(Direction.BAS.getPos(pos_sac_de_sable))) {
                         pos_sac_de_sable = Direction.BAS.getPos(pos_sac_de_sable);
                     }
                     break;
@@ -223,25 +251,8 @@ public class Partie {
             menu.setVisible(true);
         }
         if(this.win){
-            JFrame menu = new JFrame("Fin");
-            menu.setLayout(null);
-            menu.setPreferredSize(new Dimension(400, 250));
-
-            JLabel l = new JLabel("Gagné");
-            l.setLocation(130,10);
-            l.setSize(200,20);
-            JButton b = new JButton("Finir");
-            b.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    System.exit(0);
-                }
-            });
-            b.setLocation(100,180);
-            b.setSize(200,20);
-            menu.add(b);
-            menu.add(l);
-            menu.pack();
-            menu.setVisible(true);
+            System.out.println("win");
+            System.exit(0);
         }
         int alea = random.randInt(0,1);
         if(alea == 1){
@@ -271,9 +282,10 @@ public class Partie {
         this.action_realisee = 0;
         this.tJ = (tJ+1)%nbJoueur;
     }
-    private void innonde(int n) throws Exception{
+    private void innonde(int n)throws Exception{
         for(int i =0; i<n;i++){
             try{
+                this.plateau.innondeCaseInnAl();
                 ArrayList<Case> to_inspect = this.plateau.getAbleInn();
                 Case to_do = random.getRandomElt(to_inspect);
                 this.plateau.InnondeVoisinAlea(to_do.getPos());
@@ -289,6 +301,14 @@ public class Partie {
     public int getToursRestant(){
         return Partie.maxAction - this.action_realisee;
     }
+    public Model getModel(){
+        return this.m;
+    }
+    public void decrementA(){
+        this.action_realisee--;
+    }
+
+
     public ETatPartie getEtatPartie(){return this.etatPartie;}
     public int[] getCaseSacSable(){return this.pos_sac_de_sable;}
 }
