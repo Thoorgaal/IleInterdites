@@ -54,14 +54,48 @@ public class Contenu extends JPanel{
         Image imgSubmerge = Toolkit.getDefaultToolkit().getImage("images/0_20.png");
         Image imgNormal = Toolkit.getDefaultToolkit().getImage("images/tatami.png");
         Image imgDiplome = Toolkit.getDefaultToolkit().getImage("images/diplome.jpeg");
+        Image imgDiplome_dark = Toolkit.getDefaultToolkit().getImage("images/diplome_dark.jpeg");
         Image imgMaths = Toolkit.getDefaultToolkit().getImage("images/maths.jpeg");
+        Image imgMaths_dark = Toolkit.getDefaultToolkit().getImage("images/maths_dark.jpeg");
         Image imgPhysique = Toolkit.getDefaultToolkit().getImage("images/physique.jpeg");
+        Image imgPhysique_dark = Toolkit.getDefaultToolkit().getImage("images/physique_dark.jpeg");
         Image imgSport = Toolkit.getDefaultToolkit().getImage("images/sport.jpeg");
+        Image imgSport_dark = Toolkit.getDefaultToolkit().getImage("images/sport_dark.jpeg");
         Image imgHistoire = Toolkit.getDefaultToolkit().getImage("images/histoire.png");
+        Image imgHistoire_dark = Toolkit.getDefaultToolkit().getImage("images/histoire_dark.png");
         for (ArrayList<Case> l : this.plat.getPlat()) {
             for (Case c : l) {
                 if (c.getEtat() == EtatCase.INNONDE) {
-                    g.drawImage(imgInnonde, x, y, null);
+                    try {
+                        switch (c.what()) {
+                            case NORMAL:
+                                g.drawImage(imgInnonde, x, y, null);
+                                break;
+                            case HELIPORT:
+                                g.drawImage(imgDiplome_dark, x, y, null);
+                                break;
+                            case ARTEFACTCASE:
+                                if (c.hasArte()) {
+                                    switch (c.getArtefactType()) {
+                                        case MATHS:
+                                            g.drawImage(imgMaths_dark, x, y, null);
+                                            break;
+                                        case PHYSIQUE:
+                                            g.drawImage(imgPhysique_dark, x, y, null);
+                                            break;
+                                        case SPORT:
+                                            g.drawImage(imgSport_dark, x, y, null);
+                                            break;
+                                        case HISTOIRE:
+                                            g.drawImage(imgHistoire_dark, x, y, null);
+                                            break;
+
+                                    }
+                                }
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                 } else if (c.getEtat() == EtatCase.SUBMERGE) {
                     g.drawImage(imgSubmerge, x, y, null);
                 } else if (c.getEtat() == EtatCase.NORMAL) {
