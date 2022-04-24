@@ -170,6 +170,7 @@ public class Partie {
     private void innonde(int n)throws Exception{
         for(int i =0; i<n;i++){
             try{
+                this.plateau.innondeCaseInnAl();
                 ArrayList<Case> to_inspect = this.plateau.getAbleInn();
                 Case to_do = random.getRandomElt(to_inspect);
                 this.plateau.InnondeVoisinAlea(to_do.getPos());
@@ -191,5 +192,6 @@ public class Partie {
     public void decrementA(){
         this.action_realisee--;
     }
+
 
 }

@@ -1,4 +1,5 @@
 package Model;
+import java.awt.desktop.SystemSleepEvent;
 import java.io.StringReader;
 import java.lang.reflect.Array;
 import java.lang.reflect.Type;
@@ -102,7 +103,7 @@ public class Plateau {
     }
     public boolean canBeInnonde(int[] pos) throws Exception{
         //retourne false si la case peut pas avoir un vois innondé true sinon
-        if(this.get(pos).getEtat() == EtatCase.SUBMERGE) {
+        if(this.get(pos).getEtat() == EtatCase.SUBMERGE || this.get(pos).getEtat() == EtatCase.INNONDE) {
             ArrayList<Case> to_inspect = this.getCaseInBoard(pos);
             for (Case c : to_inspect) {
                 if (c.getEtat() == EtatCase.INNONDE || c.getEtat() == EtatCase.NORMAL) {
@@ -148,6 +149,17 @@ public class Plateau {
             for(Case c : p){
                 if(c.getEtat() == EtatCase.INNONDE){
                     render.add(c.getPos());
+                }
+            }
+        }
+        return render;
+    }
+        public ArrayList<Case> getCaseInnondee(){
+        ArrayList<Case> render = new ArrayList<Case>();
+        for (ArrayList<Case> p : this.plat){
+            for(Case c : p){
+                if(c.getEtat() == EtatCase.INNONDE){
+                    render.add(c);
                 }
             }
         }
@@ -232,7 +244,23 @@ public class Plateau {
     public ArrayList<ArtefactType> getTo_find(){
         return this.to_find;
     }
-
+    public void innondeCaseInnAl() throws Exception {
+        ArrayList<Case> toI = this.getCaseInnondee();
+        ArrayList<Case> to_Inspect = new ArrayList<Case>(toI);
+        for(Case caseToI : toI){
+            for(Direction d : Direction.getAll()){
+                int[] c = d.getPos(caseToI.getPos());
+                if(!is_in(c) || this.get(c).getEtat() !=EtatCase.NORMAL){
+                    to_Inspect.remove(caseToI);
+                }
+            }
+        }
+        for(Case i : to_Inspect){
+            Direction d = random.getRandomElt(Direction.getAll());
+            System.out.println(i);
+            this.get(d.getPos(i.getPos())).setEtat(EtatCase.INNONDE);
+        }
+    }
 
 
 }
