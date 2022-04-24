@@ -31,7 +31,7 @@ public class Contenu extends JPanel{
         this.c = c;
 
         JButton myButton = new JButton("new turn");
-        myButton.setLocation(fen.getWidth() - 200, 650);
+        myButton.setLocation(fen.getWidth() - 200, 700);
         myButton.setSize (110,25);
         Contenu thiscontenu = this;
         myButton.addActionListener(new ActionListener() {
@@ -165,22 +165,22 @@ public class Contenu extends JPanel{
 
             //inventaires
             g.setColor(Color.red);
-            g.fillRect(fen.getWidth() - 295, 20 + j * 150, 280, 130);
+            g.fillRect(fen.getWidth() - 295, 20 + j * 170, 280, 150);
             g.drawImage(Toolkit.getDefaultToolkit().getImage("images/" + (j + 1) + ".jpg"),
-                    fen.getWidth() - 295, 20 + j * 150, null);
+                    fen.getWidth() - 295, 20 + j * 170, null);
             g.setColor(Color.black);
             g.setFont(Fontnomperso);
-            g.drawString(joueur.getNom(), fen.getWidth() - 240, 60 + j * 150);
+            g.drawString(joueur.getNom(), fen.getWidth() - 240, 60 + j * 170);
 
             //affiche le num de tours
             if(j == joueurActif){
                 g.setFont(FontNumTour);
-                g.drawString(String.valueOf(ToursRestant),fen.getWidth() - 50, 55 + j * 150);
+                g.drawString(String.valueOf(ToursRestant),fen.getWidth() - 50, 55 + j * 170);
             }
 
             //affichage des titres
             g.setFont(FontArte);
-            g.drawString("Artefacts:", fen.getWidth() - 295, 100 + j * 150);
+            g.drawString("Artefacts:", fen.getWidth() - 295, 100 + j * 170);
             int decalageArtefact = 0;
             String textClefs = "Clefs: ";
             for(victoryObject obj: joueur.getInventaire().getVicObjets()){
@@ -203,22 +203,22 @@ public class Contenu extends JPanel{
                     switch (obj.what()){
                         case MATHS:
                             g.drawImage(imgMaths, fen.getWidth() - 215 +45*decalageArtefact,
-                                    75 + j * 150, 40,40, null);
+                                    75 + j * 170, 40,40, null);
                             decalageArtefact ++;
                             break;
                         case PHYSIQUE:
                             g.drawImage(imgPhysique, fen.getWidth() - 215 +45*decalageArtefact,
-                                    75 + j * 150, 40,40, null);
+                                    75 + j * 170, 40,40, null);
                             decalageArtefact ++;
                             break;
                         case SPORT:
                             g.drawImage(imgSport, fen.getWidth() - 215 +45*decalageArtefact,
-                                    75 + j * 150, 40,40, null);
+                                    75 + j * 170, 40,40, null);
                             decalageArtefact ++;
                             break;
                         case HISTOIRE:
                             g.drawImage(imgHistoire, fen.getWidth() - 215 +45*decalageArtefact,
-                                    75 + j * 150, 40,40, null);
+                                    75 + j * 170, 40,40, null);
                             decalageArtefact ++;
                             break;
                     }
@@ -226,7 +226,15 @@ public class Contenu extends JPanel{
             }
             textClefs = textClefs.substring(0, textClefs.length() - 2);
             g.setFont(FontClef);
-            g.drawString(textClefs, fen.getWidth() - 295, 135 + j * 150);
+            g.drawString(textClefs, fen.getWidth() - 295, 135 + j * 170);
+            //affichage elico
+            if(joueur.getInventaire().haselico) {
+                g.drawString("hélicoptère", fen.getWidth() - 250, 155 + j * 170);
+            }
+            //affichage sac de sable
+            if(joueur.getInventaire().hassacsable) {
+                g.drawString("sac de sable", fen.getWidth() - 140, 155 + j * 170);
+            }
         }
 
         //dessin des filles sur la map

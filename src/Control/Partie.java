@@ -9,6 +9,7 @@ import Model.ArtefactType;
 import Model.Cle;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Partie {
     private Plateau plateau;
@@ -112,7 +113,26 @@ public class Partie {
         if(alea == 1){
             Joueur actu = this.joueurs.get(tJ);
             ArrayList<ArtefactType> to_inspect = actu.getNonPoss();
-            if(to_inspect.size()!=0)actu.prendPossession(new Cle(random.getRandomElt(to_inspect)));
+            int nbclef = to_inspect.size();
+            int nbelico = 1;
+            int nbsable = 1;
+            if(actu.getInventaire().haselico){nbelico = 0;}
+            if(actu.getInventaire().hassacsable){nbsable = 0;}
+            int n = nbclef + nbelico + nbsable;
+            if(n> 0){
+                int i = (new Random()).nextInt(n);
+                if(i<nbclef){
+                    actu.prendPossession(new Cle(to_inspect.get(i)));
+                }else if(nbelico == 0){
+                    actu.getInventaire().hassacsable = true;
+                } else if (nbsable == 0) {
+                    actu.getInventaire().haselico = true;
+                } else if (i - nbclef == 0) {
+                    actu.getInventaire().hassacsable = true;
+                }else{
+                    actu.getInventaire().haselico = true;
+                }
+            }
         }
         this.action_realisee = 0;
         this.tJ = (tJ+1)%nbJoueur;

@@ -3,14 +3,14 @@ package Model;
 import java.util.ArrayList;
 
 public class Inventaire {
-    private ArrayList<Objet> objets;
+    public boolean haselico = false;
+    public boolean hassacsable = false;
+
     private ArrayList<victoryObject> vicObjets;
     public Inventaire(){
-        this.objets = new ArrayList<Objet>();
         this.vicObjets = new ArrayList<victoryObject>();
     }
-    public Inventaire(ArrayList<Objet> objets, ArrayList<victoryObject> vicObjets){
-        this.objets = objets;
+    public Inventaire(ArrayList<victoryObject> vicObjets){
         this.vicObjets = vicObjets;
     }
     public boolean addVictoryObject(victoryObject o){
@@ -25,14 +25,8 @@ public class Inventaire {
         this.vicObjets.add(o);
         return true;
     }
-    public void addObject(Objet o){
-        this.objets.add(o);
-    }
     public ArrayList<victoryObject> getVicObjets(){
         return this.vicObjets;
-    }
-    public ArrayList<Objet> getObjets(){
-        return this.objets;
     }
     public boolean hasArtefactT(ArtefactType a){
         for(victoryObject v : vicObjets){
@@ -42,6 +36,7 @@ public class Inventaire {
         }
         return false;
     }
+
     public int getIdK(ArtefactType t){
         int i = 0;
         for(victoryObject v : this.vicObjets){
@@ -60,21 +55,6 @@ public class Inventaire {
             }
         }
         return false;
-    }
-    public String toString(){
-        String render = "Objets : (";
-        for(int i =0; i<this.objets.size();i++){
-            render+=this.objets.get(i).toString();
-            if(i<this.objets.size()-1) render +=",";
-        }
-        render += "Artefact et clés  : ";
-        for(int i =0; i<this.vicObjets.size();i++){
-            render+=this.vicObjets.get(i).toString();
-            if(i<this.vicObjets.size()-1) render +=",";
-        }
-        return render;
-
-
     }
     public ArrayList<Artefact> getArt(){
         ArrayList<Artefact> render = new ArrayList<Artefact>();
