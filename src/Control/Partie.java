@@ -132,7 +132,7 @@ public class Partie {
                     case CREUSE:
                         Case cJ = this.joueurs.get(this.tJ).getCase();
                         if (cJ.getEtat() == EtatCase.NORMAL) {
-                            int i = random.randInt(0, 3);
+                            int i = random.randInt(0, 2);
                             switch (i) {
                                 case 0:
                                     cJ.setEtat(EtatCase.INNONDE);
